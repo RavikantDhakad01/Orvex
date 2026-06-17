@@ -8,6 +8,15 @@ import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 function Login() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [showPassword, setShowPassword] = useState(false)
+    const [loading, setLoading] = useState(false)
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        console.log({
+            email, password
+        })
+    }
     return (
         <>
             <div className="bg-slate-50  min-h-screen flex  justify-center items-center px-4">
@@ -21,17 +30,17 @@ function Login() {
                     </div>
                     <div className="flex items-center flex-col">
                         <h1 className="text-2xl font-bold">Welcome back 👋</h1>
-                        <p className="text-lg">Sign in your account to continue</p>
+                        <p className="text-sm text-gray-500">Sign in your account to continue</p>
                     </div>
 
-                    <form className="flex flex-col gap-2">
-                        <Input label="Email" type="email" placeholder="Enter your email" name="email" id="email" value={email} onChange={(e) => { return setEmail(e.target.value) }} frontIcon={<Mail/>}/>
+                    <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
+                        <Input label="Email" type="email" placeholder="Enter your email" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} frontIcon={<Mail size={20} strokeWidth={1.25} />} />
 
-                        <Input label="Password" type="password" placeholder="Enter your password" name="password" id="password" value={password} onChange={(e) => { return setPassword(e.target.value) }} frontIcon={<Lock/>} backIcon={<Eye/>}/>
+                        <Input label="Password" type={showPassword ? "text" : "password"} placeholder="Enter your password" name="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} frontIcon={<Lock size={20} strokeWidth={1.25} />} backIcon={showPassword ? <EyeOff size={20} strokeWidth={1.25} onClick={() => setShowPassword(!showPassword)} /> : <Eye size={20} strokeWidth={1.25} onClick={() => setShowPassword(!showPassword)} />} />
 
                         <Link to="/forgot-password" className="text-blue-500 cursor-pointer text-right">Forgot password?</Link>
 
-                        <Button type="submit" text="Sign In" disabled="flase"/>
+                        <Button type="submit" text="Sign In" className="mt-2" />
                     </form>
                     <div className="flex gap-1 justify-center">
                         <p>Don't have an account?</p>
