@@ -30,7 +30,7 @@ function Login() {
                     </div>
                     <div className="flex items-center flex-col">
                         <h1 className="text-2xl font-bold">Welcome back 👋</h1>
-                        <p className="text-sm text-gray-500">Sign in your account to continue</p>
+                        <p className="text-sm text-gray-500 text-center">Sign in your account to continue</p>
                     </div>
 
                     <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
