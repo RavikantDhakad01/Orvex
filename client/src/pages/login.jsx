@@ -22,7 +22,7 @@ function Login() {
             <div className="bg-slate-50  min-h-screen flex  justify-center items-center px-4">
                 <div className="bg-white flex flex-col gap-6 shadow-lg p-8 w-full max-w-md rounded-2xl">
                     <div className="flex gap-2 justify-center">
-                        <div><Hexagon
+                        <div className="cursor-pointer"><Hexagon
                             size={40}
                             className="text-blue-600"
                         /></div>
@@ -38,7 +38,7 @@ function Login() {
 
                         <Input label="Password" type={showPassword ? "text" : "password"} placeholder="Enter your password" name="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} frontIcon={<Lock size={20} strokeWidth={1.25} />} backIcon={showPassword ? <EyeOff size={20} strokeWidth={1.25} onClick={() => setShowPassword(!showPassword)} /> : <Eye size={20} strokeWidth={1.25} onClick={() => setShowPassword(!showPassword)} />} />
 
-                        <Link to="/forgot-password" className="text-blue-500 cursor-pointer text-right">Forgot password?</Link>
+                        <Link to="/forgot-password" className="text-blue-500 text-right">Forgot password?</Link>
 
                         <Button type="submit" text="Sign In" className="mt-2" />
                     </form>

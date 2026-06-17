@@ -28,7 +28,7 @@ function Signup() {
             <div className="bg-slate-50  min-h-screen flex  justify-center items-center px-4">
                 <div className="bg-white flex flex-col gap-4 shadow-lg p-8 w-full max-w-md rounded-2xl">
                     <div className="flex gap-2 justify-center">
-                        <div><Hexagon
+                        <div className="cursor-pointer"><Hexagon
                             size={40}
                             className="text-blue-600"
                         /></div>
@@ -55,7 +55,7 @@ function Signup() {
                     </form>
                     <div className="flex gap-1 justify-center">
                         <p>Already have an account?</p>
-                        <Link to="/login" className="text-blue-500 cursor-pointer">Sign in</Link>
+                        <Link to="/login" className="text-blue-500">Sign in</Link>
                     </div>
                 </div>
             </div>
