@@ -12,15 +12,46 @@ function Signup() {
     const [confirmPassword, setConfirmPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+    const [errors, setErrors] = useState({})
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log({
-            fullName,
-            email,
-            password,
-            confirmPassword
-        })
+
+        const newErrors = {}
+
+        if (!fullName.trim()) {
+            newErrors.fullName = "Full name is required"
+        }
+
+        if (!email.trim()) {
+            newErrors.email = "Email is required"
+        }
+
+        if (email && !/\S+@\S+\.\S+/.test(email)) {
+            newErrors.email =
+                "Please enter a valid email address";
+        }
+
+        if (!password.trim()) {
+            newErrors.password = "Password is required"
+        }
+
+        if (password && password.length < 8) {
+            newErrors.password = "Password must be at least 8 characters"
+        }
+
+        if (!confirmPassword.trim()) {
+            newErrors.confirmPassword = "Confirm password is required"
+        }
+
+        if (
+            password &&
+            confirmPassword &&
+            password !== confirmPassword
+        ) {
+            newErrors.confirmPassword = "Passwords do not match";
+        }
+        setErrors(newErrors)
     }
 
     return (
@@ -41,16 +72,62 @@ function Signup() {
 
                     <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
 
-                        <Input label="Full Name" type="text" placeholder="Enter your full name" name="fullName" id="fullName" value={fullName} onChange={(e) => setFullName(e.target.value)} frontIcon={<User size={20} strokeWidth={1.25} />} />
+                        <Input label="Full Name" type="text" placeholder="Enter your full name" name="fullName" id="fullName" value={fullName} onChange={(e) => {
+                            setFullName(e.target.value)
+                            setErrors((pre) => {
+                                const newErrors = { ...pre }
+                                delete newErrors.fullName
+                                return newErrors
+                            })
+                        }} frontIcon={<User size={20} strokeWidth={1.25} />} />
+                        {
+                            errors.fullName && (
+                                <p className="text-sm text-red-500">{errors.fullName}</p>
+                            )
+                        }
+                        <Input label="Email" type="email" placeholder="Enter your email" name="email" id="email" value={email} onChange={(e) => {
+                            setEmail(e.target.value)
+                            setErrors((pre) => {
+                                const newErrors = { ...pre }
+                                delete newErrors.email
+                                return newErrors
+                            })
+                        }} frontIcon={<Mail size={20} strokeWidth={1.25} />} />
 
-                        <Input label="Email" type="email" placeholder="Enter your email" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} frontIcon={<Mail size={20} strokeWidth={1.25} />} />
+                        {
+                            errors.email && (
+                                <p className="text-sm text-red-500">{errors.email}</p>
+                            )
+                        }
 
-                        <Input label="Password" type={showPassword ? "text" : "password"} placeholder="Enter your password" name="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} frontIcon={<Lock size={20} strokeWidth={1.25} />} backIcon={showPassword ? <EyeOff size={20} strokeWidth={1.25} onClick={() => setShowPassword(!showPassword)} /> : <Eye size={20} strokeWidth={1.25} onClick={() => setShowPassword(!showPassword)} />} />
+                        <Input label="Password" type={showPassword ? "text" : "password"} placeholder="Enter your password" name="password" id="password" value={password} onChange={(e) => {
+                            setPassword(e.target.value)
+                            setErrors((pre) => {
+                                const newErrors = { ...pre }
+                                delete newErrors.password
+                                return newErrors
+                            })
+                        }} frontIcon={<Lock size={20} strokeWidth={1.25} />} backIcon={showPassword ? <EyeOff size={20} strokeWidth={1.25} onClick={() => setShowPassword(!showPassword)} /> : <Eye size={20} strokeWidth={1.25} onClick={() => setShowPassword(!showPassword)} />} />
 
+                        {
+                            errors.password && (
+                                <p className="text-sm text-red-500">{errors.password}</p>
+                            )
+                        }
+                        <Input label="Confirm Password" type={showConfirmPassword ? "text" : "password"} placeholder="Confirm your password" name="confirmPassword" id="confirmPassword" value={confirmPassword} onChange={(e) => {
+                            setConfirmPassword(e.target.value)
+                            setErrors((pre) => {
+                                const newErrors = { ...pre }
+                                delete newErrors.confirmPassword
+                                return newErrors
+                            })
+                        }} frontIcon={<Lock size={20} strokeWidth={1.25} />} backIcon={showConfirmPassword ? <EyeOff size={20} strokeWidth={1.25} onClick={() => setShowConfirmPassword(!showConfirmPassword)} /> : <Eye size={20} strokeWidth={1.25} onClick={() => setShowConfirmPassword(!showConfirmPassword)} />} />
 
-                        <Input label="Confirm Password" type={showConfirmPassword ? "text" : "password"} placeholder="Confirm your password" name="confirmPassword" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} frontIcon={<Lock size={20} strokeWidth={1.25} />} backIcon={showConfirmPassword ? <EyeOff size={20} strokeWidth={1.25} onClick={() => setShowConfirmPassword(!showConfirmPassword)} /> : <Eye size={20} strokeWidth={1.25} onClick={() => setShowConfirmPassword(!showConfirmPassword)} />} />
-
-
+                        {
+                            errors.confirmPassword && (
+                                <p className="text-sm text-red-500">{errors.confirmPassword}</p>
+                            )
+                        }
                         <Button type="submit" text="Sign Up" className="mt-2" />
                     </form>
                     <div className="flex gap-1 justify-center">

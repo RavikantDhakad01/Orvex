@@ -11,12 +11,32 @@ function ResetPassword() {
     const [confirmPassword, setConfirmPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+    const [errors, setErrors] = useState({})
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log({
-            password, confirmPassword
-        })
+
+        const newErrors = {}
+        if (!password.trim()) {
+            newErrors.password = "Password is required"
+        }
+
+        if (password && password.length < 8) {
+            newErrors.password = "Password must be at least 8 characters"
+        }
+
+        if (!confirmPassword.trim()) {
+            newErrors.confirmPassword = "Confirm password is required"
+        }
+
+        if (
+            password &&
+            confirmPassword &&
+            password !== confirmPassword
+        ) {
+            newErrors.confirmPassword = "Passwords do not match";
+        }
+        setErrors(newErrors)
     }
 
     return (
@@ -36,9 +56,36 @@ function ResetPassword() {
                     </div>
 
                     <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
-                        <Input label="Password" type={showPassword ? "text" : "password"} placeholder="Enter your new password" name="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} frontIcon={<Lock size={20} strokeWidth={1.25} />} backIcon={showPassword ? <EyeOff size={20} strokeWidth={1.25} onClick={() => setShowPassword(!showPassword)} /> : <Eye size={20} strokeWidth={1.25} onClick={() => setShowPassword(!showPassword)} />} />
+                        <Input label="Password" type={showPassword ? "text" : "password"} placeholder="Enter your new password" name="password" id="password" value={password} onChange={(e) => {
+                            setPassword(e.target.value)
+                            setErrors((pre) => {
+                                const newErrors = { ...pre }
+                                delete newErrors.password
+                                return newErrors
+                            })
+                        }} frontIcon={<Lock size={20} strokeWidth={1.25} />} backIcon={showPassword ? <EyeOff size={20} strokeWidth={1.25} onClick={() => setShowPassword(!showPassword)} /> : <Eye size={20} strokeWidth={1.25} onClick={() => setShowPassword(!showPassword)} />} />
 
-                        <Input label="Confirm Password" type={showConfirmPassword ? "text" : "password"} placeholder="Confirm your new password" name="confirmPassword" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} frontIcon={<Lock size={20} strokeWidth={1.25} />} backIcon={showConfirmPassword ? <EyeOff size={20} strokeWidth={1.25} onClick={() => setShowConfirmPassword(!showConfirmPassword)} /> : <Eye size={20} strokeWidth={1.25} onClick={() => setShowConfirmPassword(!showConfirmPassword)} />} />
+                        {
+                            errors.password && (
+                                <p className="text-sm text-red-500">{errors.password}</p>
+                            )
+                        }
+
+                        <Input label="Confirm Password" type={showConfirmPassword ? "text" : "password"} placeholder="Confirm your new password" name="confirmPassword" id="confirmPassword" value={confirmPassword} onChange={(e) => {
+                            setConfirmPassword(e.target.value)
+                            setErrors((pre) => {
+                                const newErrors = { ...pre }
+                                delete newErrors.confirmPassword
+                                return newErrors
+                            })
+                        }} frontIcon={<Lock size={20} strokeWidth={1.25} />} backIcon={showConfirmPassword ? <EyeOff size={20} strokeWidth={1.25} onClick={() => setShowConfirmPassword(!showConfirmPassword)} /> : <Eye size={20} strokeWidth={1.25} onClick={() => setShowConfirmPassword(!showConfirmPassword)} />} />
+
+                        {
+                            errors.confirmPassword && (
+                                <p className="text-sm text-red-500">{errors.
+                                    confirmPassword}</p>
+                            )
+                        }
 
                         <Button type="submit" text="Reset Password" className="mt-2" />
                     </form>

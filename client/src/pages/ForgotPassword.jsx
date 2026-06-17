@@ -8,12 +8,20 @@ import { Mail } from "lucide-react";
 function ForgotPassword() {
 
     const [email, setEmail] = useState("")
+    const [errors, setErrors] = useState({})
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log({
-            email
-        })
+        const newErrors = {}
+        if (!email.trim()) {
+            newErrors.email = "Email is required"
+        }
+
+        if (email && !/\S+@\S+\.\S+/.test(email)) {
+            newErrors.email =
+                "Please enter a valid email address";
+        }
+        setErrors(newErrors)
     }
     return (
         <>
@@ -32,8 +40,19 @@ function ForgotPassword() {
                     </div>
 
                     <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
-                        <Input label="Email" type="email" placeholder="Enter your email" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} frontIcon={<Mail size={20} strokeWidth={1.25} />} />
-
+                        <Input label="Email" type="email" placeholder="Enter your email" name="email" id="email" value={email} onChange={(e) => {
+                            setEmail(e.target.value)
+                            setErrors((pre) => {
+                                const newErrors = { ...pre }
+                                delete newErrors.email
+                                return newErrors
+                            })
+                        }} frontIcon={<Mail size={20} strokeWidth={1.25} />} />
+                        {
+                            errors.email && (
+                                <p className="text-sm text-red-500">{errors.email}</p>
+                            )
+                        }
                         <Button type="submit" text="Send Reset Link" className="mt-2" />
                     </form>
 

@@ -10,13 +10,34 @@ function Login() {
     const [password, setPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [errors, setErrors] = useState({})
+
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log({
-            email, password
-        })
+
+        const newErrors = {}
+        if (!email.trim()) {
+            newErrors.email = "Email is required"
+        }
+
+        if (email && !/\S+@\S+\.\S+/.test(email)) {
+            newErrors.email =
+                "Please enter a valid email address";
+        }
+
+        if (!password.trim()) {
+            newErrors.password = "password is required"
+        }
+
+        if (password && password.length < 8) {
+            newErrors.password = "Password must be at least 8 characters"
+        }
+        setErrors(newErrors)
+
     }
+
+
     return (
         <>
             <div className="bg-slate-50  min-h-screen flex  justify-center items-center px-4">
@@ -34,9 +55,36 @@ function Login() {
                     </div>
 
                     <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
-                        <Input label="Email" type="email" placeholder="Enter your email" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} frontIcon={<Mail size={20} strokeWidth={1.25} />} />
+                        <Input label="Email" type="email" placeholder="Enter your email" name="email" id="email" value={email} onChange={(e) => {
+                            setEmail(e.target.value)
+                            setErrors((pre) => {
+                                const newErrors = { ...pre }
+                                delete newErrors.email
+                                return newErrors
+                            })
+                        }}
+                            frontIcon={<Mail size={20} strokeWidth={1.25} />} />
 
-                        <Input label="Password" type={showPassword ? "text" : "password"} placeholder="Enter your password" name="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} frontIcon={<Lock size={20} strokeWidth={1.25} />} backIcon={showPassword ? <EyeOff size={20} strokeWidth={1.25} onClick={() => setShowPassword(!showPassword)} /> : <Eye size={20} strokeWidth={1.25} onClick={() => setShowPassword(!showPassword)} />} />
+                        {
+                            errors.email && (
+                                <p className="text-sm text-red-500">{errors.email}</p>
+                            )
+                        }
+                        <Input label="Password" type={showPassword ? "text" : "password"} placeholder="Enter your password" name="password" id="password" value={password} onChange={(e) => {
+                            setPassword(e.target.value)
+                            setErrors((pre) => {
+                                const newErrors = { ...pre }
+                                delete newErrors.password
+                                return newErrors
+
+                            })
+                        }} frontIcon={<Lock size={20} strokeWidth={1.25} />} backIcon={showPassword ? <EyeOff size={20} strokeWidth={1.25} onClick={() => setShowPassword(!showPassword)} /> : <Eye size={20} strokeWidth={1.25} onClick={() => setShowPassword(!showPassword)} />} />
+
+                        {
+                            errors.password && (
+                                <p className="text-sm text-red-500">{errors.password}</p>
+                            )
+                        }
 
                         <Link to="/forgot-password" className="text-blue-500 text-right">Forgot password?</Link>
 
