@@ -36,7 +36,7 @@ function Signup() {
                     </div>
                     <div className="flex items-center flex-col">
                         <h1 className="text-2xl font-bold">Create your account</h1>
-                        <p className="text-sm">Sign up to get started with Orvex</p>
+                        <p className="text-sm text-gray-500">Sign up to get started with Orvex</p>
                     </div>
 
                     <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
