@@ -26,7 +26,7 @@ function Signup() {
     return (
         <>
             <div className="bg-slate-50  min-h-screen flex  justify-center items-center px-4">
-                <div className="bg-white flex flex-col gap-4 shadow-lg p-8 w-full max-w-md rounded-2xl">
+                <div className="bg-white flex flex-col gap-6 shadow-lg p-8 w-full max-w-md rounded-2xl">
                     <div className="flex gap-2 justify-center">
                         <div className="cursor-pointer"><Hexagon
                             size={40}
