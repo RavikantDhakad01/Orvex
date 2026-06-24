@@ -6,7 +6,7 @@ const generateAccessAndRefreshTokens = async (userId) => {
 
     const user = await User.findById(userId)
     if (!user) {
-        throw new ApiError(404,"User not found")
+        throw new ApiError(404, "User not found")
     }
 
     const accessToken = user.generateAccessToken()
@@ -78,7 +78,7 @@ const login = async (req, res, next) => {
 
         const options = {
             httpOnly: true,
-            secure: process.env.NODE_ENV ==="production"
+            secure: process.env.NODE_ENV === "production"
         }
         return res.status(200)
             .cookie("accessToken", accessToken, options)
@@ -90,10 +90,9 @@ const login = async (req, res, next) => {
     }
 }
 
-
 const getCurrentUser = async (req, res, next) => {
     try {
-
+        return res.status(200).json(new ApiResponse(200, req.user, "User details fetched successfully"))
     } catch (error) {
         next(error)
     }
@@ -101,7 +100,24 @@ const getCurrentUser = async (req, res, next) => {
 
 const logout = async (req, res, next) => {
     try {
+        await User.findByIdAndUpdate(
+            req.user._id,
+            {
+                $unset: {
+                    refreshToken: 1
+                }
+            }
+        )
 
+        const options = {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production"
+        }
+
+        return res.status(200)
+        .clearCookie("accessToken",options)
+        .clearCookie("refreshToken",options)
+        .json(new ApiResponse(200,{},"User logged out successfully"))
     } catch (error) {
         next(error)
     }
