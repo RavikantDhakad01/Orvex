@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { User, Mail, Lock, Eye, EyeOff } from "lucide-react";
 
 function Signup() {
-    const [fullName, setFullName] = useState("")
+    const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
@@ -19,8 +19,8 @@ function Signup() {
 
         const newErrors = {}
 
-        if (!fullName.trim()) {
-            newErrors.fullName = "Full name is required"
+        if (!username.trim()) {
+            newErrors.username = "Username is required"
         }
 
         if (!email.trim()) {
@@ -72,17 +72,17 @@ function Signup() {
 
                     <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
 
-                        <Input label="Full Name" type="text" placeholder="Enter your full name" name="fullName" id="fullName" value={fullName} onChange={(e) => {
-                            setFullName(e.target.value)
+                        <Input label="Username" type="text" placeholder="Enter your username" name="username" id="username" value={username} onChange={(e) => {
+                            setUsername(e.target.value)
                             setErrors((pre) => {
                                 const newErrors = { ...pre }
-                                delete newErrors.fullName
+                                delete newErrors.username
                                 return newErrors
                             })
                         }} frontIcon={<User size={20} strokeWidth={1.25} />} />
                         {
-                            errors.fullName && (
-                                <p className="text-sm text-red-500">{errors.fullName}</p>
+                            errors.username && (
+                                <p className="text-sm text-red-500">{errors.username}</p>
                             )
                         }
                         <Input label="Email" type="email" placeholder="Enter your email" name="email" id="email" value={email} onChange={(e) => {
