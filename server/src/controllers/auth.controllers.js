@@ -24,6 +24,10 @@ const register = async (req, res, next) => {
         if ([username, email, password].some((field) => !field?.trim())) {
             throw new ApiError(400, "All fields are required")
         }
+        
+        if (password.trim().length < 8) {
+            throw new ApiError(400,"Password must be at least 8 characters long")
+        }
 
         const existedUser = await User.findOne({
             $or: [{ email: email.trim().toLowerCase() }, { username: username.trim().toLowerCase() }]
@@ -115,9 +119,9 @@ const logout = async (req, res, next) => {
         }
 
         return res.status(200)
-        .clearCookie("accessToken",options)
-        .clearCookie("refreshToken",options)
-        .json(new ApiResponse(200,{},"User logged out successfully"))
+            .clearCookie("accessToken", options)
+            .clearCookie("refreshToken", options)
+            .json(new ApiResponse(200, {}, "User logged out successfully"))
     } catch (error) {
         next(error)
     }
