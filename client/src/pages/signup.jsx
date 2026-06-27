@@ -4,8 +4,11 @@ import Button from "../components/Button.jsx";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { User, Mail, Lock, Eye, EyeOff } from "lucide-react";
+import { register } from "../services/auth.services.js"
+import { useNavigate } from "react-router-dom"
 
 function Signup() {
+    const navigate = useNavigate()
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -14,7 +17,7 @@ function Signup() {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const [errors, setErrors] = useState({})
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
         const newErrors = {}
@@ -52,6 +55,27 @@ function Signup() {
             newErrors.confirmPassword = "Passwords do not match";
         }
         setErrors(newErrors)
+
+        if (Object.keys(newErrors).length > 0) {
+            return
+        }
+
+        try {
+            const data = await register({
+                username,
+                email,
+                password
+
+            })
+            navigate("/login")
+
+        } catch (error) {
+            setErrors({
+                server: error.response.data.message
+            })
+        }
+
+
     }
 
     return (
@@ -69,7 +93,11 @@ function Signup() {
                         <h1 className="text-2xl font-bold">Create your account 🚀</h1>
                         <p className="text-sm text-gray-500 text-center">Sign up to get started with Orvex</p>
                     </div>
-
+                    {
+                        errors.server && (
+                            <p className="text-sm text-red-500 text-center">{errors.server}</p>
+                        )
+                    }
                     <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
 
                         <Input label="Username" type="text" placeholder="Enter your username" name="username" id="username" value={username} onChange={(e) => {
@@ -77,6 +105,7 @@ function Signup() {
                             setErrors((pre) => {
                                 const newErrors = { ...pre }
                                 delete newErrors.username
+                                delete newErrors.server
                                 return newErrors
                             })
                         }} frontIcon={<User size={20} strokeWidth={1.25} />} />
@@ -90,6 +119,7 @@ function Signup() {
                             setErrors((pre) => {
                                 const newErrors = { ...pre }
                                 delete newErrors.email
+                                delete newErrors.server
                                 return newErrors
                             })
                         }} frontIcon={<Mail size={20} strokeWidth={1.25} />} />
@@ -105,6 +135,7 @@ function Signup() {
                             setErrors((pre) => {
                                 const newErrors = { ...pre }
                                 delete newErrors.password
+                                delete newErrors.server
                                 return newErrors
                             })
                         }} frontIcon={<Lock size={20} strokeWidth={1.25} />} backIcon={showPassword ? <EyeOff size={20} strokeWidth={1.25} onClick={() => setShowPassword(!showPassword)} /> : <Eye size={20} strokeWidth={1.25} onClick={() => setShowPassword(!showPassword)} />} />
@@ -119,6 +150,7 @@ function Signup() {
                             setErrors((pre) => {
                                 const newErrors = { ...pre }
                                 delete newErrors.confirmPassword
+                                delete newErrors.server
                                 return newErrors
                             })
                         }} frontIcon={<Lock size={20} strokeWidth={1.25} />} backIcon={showConfirmPassword ? <EyeOff size={20} strokeWidth={1.25} onClick={() => setShowConfirmPassword(!showConfirmPassword)} /> : <Eye size={20} strokeWidth={1.25} onClick={() => setShowConfirmPassword(!showConfirmPassword)} />} />
