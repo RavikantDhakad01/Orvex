@@ -1,6 +1,7 @@
 import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser"
+import errorHandler from "./middlewares/error.middleware.js"
 const app = express()
 
 app.use(express.json({ limit: "16kb" }))
@@ -22,4 +23,5 @@ import healthCheckRouter  from "./routes/healthcheck.routes.js"
 app.use("/api/v1/auth",authRouter)
 app.use("/api/v1/healthcheck",healthCheckRouter)
 
+app.use(errorHandler)
 export default app
