@@ -3,7 +3,7 @@ const errorHandler = (err, req, res, next) => {
     const message = err.message || "Internal Server Error"
 
     const response = {
-        success: false,
+        success: err.success,
         statusCode,
         message
     }
