@@ -4,6 +4,8 @@ import Button from "../components/Button.jsx";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
+import { login } from "../services/auth.services.js";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
     const [email, setEmail] = useState("")
@@ -11,9 +13,9 @@ function Login() {
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setLoading] = useState(false)
     const [errors, setErrors] = useState({})
+    const navigate = useNavigate()
 
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
         const newErrors = {}
@@ -35,6 +37,23 @@ function Login() {
         }
         setErrors(newErrors)
 
+        if (Object.keys(newErrors).length > 0) {
+            return
+        }
+
+        try {
+            const data = await login({
+                email,
+                password
+            })
+
+            navigate("/dashboard")
+            
+        } catch (error) {
+            setErrors({
+                server: error.response.data.message
+            })
+        }
     }
 
 
@@ -53,13 +72,18 @@ function Login() {
                         <h1 className="text-2xl font-bold">Welcome back 👋</h1>
                         <p className="text-sm text-gray-500 text-center">Sign in your account to continue</p>
                     </div>
-
+                    {
+                        errors.server && (
+                            <p className="text-sm text-red-500 text-center">{errors.server}</p>
+                        )
+                    }
                     <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
                         <Input label="Email" type="email" placeholder="Enter your email" name="email" id="email" value={email} onChange={(e) => {
                             setEmail(e.target.value)
                             setErrors((pre) => {
                                 const newErrors = { ...pre }
                                 delete newErrors.email
+                                delete newErrors.server
                                 return newErrors
                             })
                         }}
@@ -75,6 +99,7 @@ function Login() {
                             setErrors((pre) => {
                                 const newErrors = { ...pre }
                                 delete newErrors.password
+                                delete newErrors.server
                                 return newErrors
 
                             })
