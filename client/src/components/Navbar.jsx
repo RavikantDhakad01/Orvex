@@ -4,7 +4,7 @@ import { useState } from "react"
 function Navbar() {
     const [open, setOpen] = useState(false)
     return (
-        <header>
+        <header className="z-10 sticky top-0">
             <nav>
                 <ul className="bg-white shadow flex items-center justify-end p-4 border-b border-gray-200">
                     <li className="relative">

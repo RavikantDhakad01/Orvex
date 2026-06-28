@@ -3,7 +3,7 @@ import { LayoutDashboard, Hexagon, BriefcaseBusiness, FolderKanban, ListTodo } f
 
 function Sidebar() {
     return (
-        <aside className="flex flex-col gap-7 w-64 bg-white min-h-screen p-3 shadow-lg border-r border-gray-200">
+        <aside className="flex flex-col gap-7 w-64 bg-white min-h-screen p-3 shadow-lg border-r border-gray-200 z-20">
             <div className="flex flex-row gap-1">
                 <Hexagon size={36} className="text-blue-800" />
                 <h1 className="text-xl font-bold">Orvex</h1>
