@@ -1,11 +1,12 @@
 import { Hexagon } from "lucide-react";
 import Input from "../components/Input.jsx";
 import Button from "../components/Button.jsx";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { login } from "../services/auth.services.js";
 import { useNavigate } from "react-router-dom";
+import AuthContext from "../context/AuthContext.jsx";
 
 function Login() {
     const [email, setEmail] = useState("")
@@ -14,6 +15,7 @@ function Login() {
     const [loading, setLoading] = useState(false)
     const [errors, setErrors] = useState({})
     const navigate = useNavigate()
+    const { setUser } = useContext(AuthContext)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -46,9 +48,10 @@ function Login() {
                 email,
                 password
             })
-
-            navigate("/dashboard")
             
+            setUser(data.data)
+            navigate("/dashboard")
+
         } catch (error) {
             setErrors({
                 server: error.response.data.message

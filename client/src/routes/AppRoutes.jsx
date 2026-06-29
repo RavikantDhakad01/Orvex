@@ -6,6 +6,7 @@ import ResetPassword from "../pages/ResetPassword.jsx"
 import LandingPage from "../pages/LandingPage.jsx"
 import Dashboard from "../pages/Dashboard.jsx"
 import DashboardLayout from "../layouts/DashboardLayout.jsx"
+import ProtectedRoutes from "./ProtectedRoutes.jsx"
 
 function AppRoutes() {
     return (
@@ -16,9 +17,13 @@ function AppRoutes() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
-                <Route element={<DashboardLayout />}>
-                    <Route path="/dashboard" element={<Dashboard />} />
+                <Route element={<ProtectedRoutes />}>
+                    <Route element={<DashboardLayout />}>
+                        <Route path="/dashboard" element={<Dashboard />} />
+                    </Route>
                 </Route>
+
+
             </Routes>
         </>
     )
