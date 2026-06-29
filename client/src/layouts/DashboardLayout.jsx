@@ -2,15 +2,16 @@ import Sidebar from "../components/Sidebar.jsx"
 import Navbar from "../components/Navbar.jsx"
 import { Outlet } from "react-router-dom"
 import { currentUser } from "../services/auth.services.js"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
+import AuthContext from "../context/AuthContext.jsx"
 
 function DashboardLayout() {
-    const [user, setUser] = useState(null)
+    const { setUser } = useContext(AuthContext)
     useEffect(() => {
         const getCurrentUser = async () => {
             try {
                 const user = await currentUser()
-                setUser(user.data)
+                setUser(user.data) //
             } catch (error) {
                 console.log(error.response.data.message)
             }
@@ -22,7 +23,7 @@ function DashboardLayout() {
 
             <Sidebar />
             <div className="w-full">
-                <Navbar user={user} />
+                <Navbar/>
                 <main className="p-8">
                     <Outlet />
                 </main>

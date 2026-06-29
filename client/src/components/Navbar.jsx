@@ -1,7 +1,9 @@
 import { LogOut, User, ChevronDown, Mail, } from "lucide-react";
-import { useState } from "react"
+import { useState,useContext } from "react"
+import AuthContext from "../context/AuthContext.jsx";
 
-function Navbar({ user }) {
+function Navbar() {
+    const {user} = useContext(AuthContext)
     const [open, setOpen] = useState(false)
     return (
         <header className="z-10 sticky top-0">
