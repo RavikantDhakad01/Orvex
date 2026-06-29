@@ -7,16 +7,20 @@ import LandingPage from "../pages/LandingPage.jsx"
 import Dashboard from "../pages/Dashboard.jsx"
 import DashboardLayout from "../layouts/DashboardLayout.jsx"
 import ProtectedRoutes from "./ProtectedRoutes.jsx"
-
+import PublicRoutes from "./PublicRoutes.jsx"
 function AppRoutes() {
     return (
         <>
             <Routes>
-                <Route path="/" element={<LandingPage />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/forgot-password" element={<ForgotPassword />} />
-                <Route path="/reset-password" element={<ResetPassword />} />
+
+                <Route element={<PublicRoutes/>}>
+                    <Route path="/" element={<LandingPage />} />
+                    <Route path="/signup" element={<Signup />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
+                    <Route path="/reset-password" element={<ResetPassword />} />
+                </Route>
+
                 <Route element={<ProtectedRoutes />}>
                     <Route element={<DashboardLayout />}>
                         <Route path="/dashboard" element={<Dashboard />} />
