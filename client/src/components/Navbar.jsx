@@ -1,10 +1,25 @@
 import { LogOut, User, ChevronDown, Mail, } from "lucide-react";
-import { useState,useContext } from "react"
+import { useState, useContext } from "react"
+import { logout } from "../services/auth.services.js"
 import AuthContext from "../context/AuthContext.jsx";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
-    const {user} = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
     const [open, setOpen] = useState(false)
+    const { setUser } = useContext(AuthContext)
+    const navigate = useNavigate()
+
+    const handleLogout = async () => {
+        try {
+            await logout()
+            setUser(null)
+            navigate("/login")
+        } catch (error) {
+            console.log(error)
+             // TODO: Show toast/message: "Logout failed. Please try again."
+        }
+    }
     return (
         <header className="z-10 sticky top-0">
             <nav>
@@ -26,7 +41,7 @@ text-sm">
                                     </div>
 
                                     <button className="flex mt-3 pt-2 px-1 border-t border-gray-300 gap-2 items-center cursor-pointer hover:text-red-500
-transition-colors"><LogOut size={22} /> <span>Logout</span></button>
+transition-colors" onClick={handleLogout}><LogOut size={22} /> <span>Logout</span></button>
                                 </div>
                             )
                         }
