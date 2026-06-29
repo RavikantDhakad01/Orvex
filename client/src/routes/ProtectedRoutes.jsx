@@ -10,9 +10,10 @@ function ProtectedRoutes() {
     }
     if (!user) {
         return <Navigate to="/login" replace />;
-    } else {
-        return <Outlet />
-    }
+    } 
+        
+    return <Outlet />
+    
 }
 
 export default ProtectedRoutes
