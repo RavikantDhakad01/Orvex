@@ -19,7 +19,15 @@ function Navbar() {
 
             navigate("/login")
         } catch (error) {
-            toast.error("Failed to logout")
+           if (error.response) {
+                toast.error(error.response.data.message)
+            }
+            else if (error.request) {
+                toast.error("Please check your internet connection")
+            }
+            else {
+                toast.error("Something went wrong. Please try again")
+            }
         }
     }
     return (

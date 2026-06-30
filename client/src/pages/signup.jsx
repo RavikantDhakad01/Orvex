@@ -18,7 +18,7 @@ function Signup() {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const [errors, setErrors] = useState({})
     const [loading, setLoading] = useState(false)
-    
+
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -76,7 +76,15 @@ function Signup() {
             navigate("/login")
 
         } catch (error) {
-            toast.error(error.response.data.message)
+            if (error.response) {
+                toast.error(error.response.data.message)
+            }
+            else if (error.request) {
+                toast.error("Please check your internet connection")
+            }
+            else {
+                toast.error("Something went wrong. Please try again")
+            }
         } finally {
             setLoading(false)
         }
@@ -99,14 +107,14 @@ function Signup() {
                         <h1 className="text-2xl font-bold">Create your account 🚀</h1>
                         <p className="text-sm text-gray-500 text-center">Sign up to get started with Orvex</p>
                     </div>
-                    
+
                     <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
 
                         <Input label="Username" type="text" placeholder="Enter your username" name="username" id="username" value={username} onChange={(e) => {
                             setUsername(e.target.value)
                             setErrors((pre) => {
                                 const newErrors = { ...pre }
-                                delete newErrors.username                               
+                                delete newErrors.username
                                 return newErrors
                             })
                         }} frontIcon={<User size={20} strokeWidth={1.25} />} />

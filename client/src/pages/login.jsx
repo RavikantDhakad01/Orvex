@@ -1,7 +1,7 @@
 import { Hexagon } from "lucide-react";
 import Input from "../components/Input.jsx";
 import Button from "../components/Button.jsx";
-import { useState} from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { login } from "../services/auth.services.js";
@@ -52,11 +52,19 @@ function Login() {
 
             setUser(data.data)
             toast.success(data.message)
-            
+
             navigate("/dashboard")
 
         } catch (error) {
-            toast.error(error.response.data.message)
+            if (error.response) {
+                toast.error(error.response.data.message)
+            }
+            else if(error.request){
+                toast.error("Please check your internet connection")
+            }
+            else{
+                toast.error("Something went wrong. Please try again")
+            }
         }
         finally {
             setLoading(false)
@@ -79,7 +87,7 @@ function Login() {
                         <h1 className="text-2xl font-bold">Welcome back 👋</h1>
                         <p className="text-sm text-gray-500 text-center">Sign in your account to continue</p>
                     </div>
-                   
+
                     <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
                         <Input label="Email" type="email" placeholder="Enter your email" name="email" id="email" value={email} onChange={(e) => {
                             setEmail(e.target.value)
