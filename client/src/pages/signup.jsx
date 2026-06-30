@@ -16,6 +16,7 @@ function Signup() {
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const [errors, setErrors] = useState({})
+    const [loading, setLoading] = useState(false)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -59,7 +60,7 @@ function Signup() {
         if (Object.keys(newErrors).length > 0) {
             return
         }
-
+        setLoading(true)
         try {
             const data = await register({
                 username,
@@ -73,6 +74,8 @@ function Signup() {
             setErrors({
                 server: error.response.data.message
             })
+        } finally {
+            setLoading(false)
         }
 
 
@@ -160,7 +163,7 @@ function Signup() {
                                 <p className="text-sm text-red-500">{errors.confirmPassword}</p>
                             )
                         }
-                        <Button type="submit" text="Sign Up" className="mt-2" />
+                        <Button type="submit" text={loading ? "Sign Up..." : "Sign Up"} className={`mt-2 ${loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`} disabled={loading} />
                     </form>
                     <div className="flex gap-1 justify-center">
                         <p>Already have an account?</p>

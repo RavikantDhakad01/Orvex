@@ -9,6 +9,7 @@ function ForgotPassword() {
 
     const [email, setEmail] = useState("")
     const [errors, setErrors] = useState({})
+    const [loading, setLoading] = useState(false)
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -22,6 +23,12 @@ function ForgotPassword() {
                 "Please enter a valid email address";
         }
         setErrors(newErrors)
+        if (Object.keys(newErrors).length > 0) {
+            return
+        }
+        setLoading(true) 
+
+        //Api call
     }
     return (
         <>
@@ -53,7 +60,7 @@ function ForgotPassword() {
                                 <p className="text-sm text-red-500">{errors.email}</p>
                             )
                         }
-                        <Button type="submit" text="Send Reset Link" className="mt-2" />
+                        <Button type="submit" text="Send Reset Link" className="mt-2 opacity-50 cursor-not-allowed"  disabled={true}/>
                     </form>
 
 

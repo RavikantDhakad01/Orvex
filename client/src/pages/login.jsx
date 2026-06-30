@@ -42,13 +42,13 @@ function Login() {
         if (Object.keys(newErrors).length > 0) {
             return
         }
-
+        setLoading(true)
         try {
             const data = await login({
                 email,
                 password
             })
-            
+
             setUser(data.data)
             navigate("/dashboard")
 
@@ -56,6 +56,9 @@ function Login() {
             setErrors({
                 server: error.response.data.message
             })
+        }
+        finally {
+            setLoading(false)
         }
     }
 
@@ -116,7 +119,7 @@ function Login() {
 
                         <Link to="/forgot-password" className="text-blue-500 text-right">Forgot password?</Link>
 
-                        <Button type="submit" text="Sign In" className="mt-2" />
+                        <Button type="submit" text={loading ? "Sign In..." : "Sign In"} className={`mt-2 ${loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`} disabled={loading} />
                     </form>
                     <div className="flex gap-1 justify-center">
                         <p>Don't have an account?</p>

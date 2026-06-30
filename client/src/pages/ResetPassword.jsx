@@ -12,6 +12,7 @@ function ResetPassword() {
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const [errors, setErrors] = useState({})
+    const [loading, setLoading] = useState(false)
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -37,6 +38,11 @@ function ResetPassword() {
             newErrors.confirmPassword = "Passwords do not match";
         }
         setErrors(newErrors)
+         if (Object.keys(newErrors).length > 0) {
+            return
+        }
+        setLoading(true) 
+        //Api call
     }
 
     return (
@@ -87,7 +93,7 @@ function ResetPassword() {
                             )
                         }
 
-                        <Button type="submit" text="Reset Password" className="mt-2" />
+                        <Button type="submit" text="Reset Password" className="mt-2 opacity-50 cursor-not-allowed"  disabled={true} />
                     </form>
 
 
