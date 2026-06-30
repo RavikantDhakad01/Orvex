@@ -48,7 +48,7 @@ const register = async (req, res, next) => {
             throw new ApiError(500, "Something went wrong while registering user")
         }
 
-        return res.status(201).json(new ApiResponse(201, createdUser, "User registered successfully"))
+        return res.status(201).json(new ApiResponse(201, createdUser, "Account created successfully"))
 
     } catch (error) {
         next(error)
@@ -87,7 +87,7 @@ const login = async (req, res, next) => {
         return res.status(200)
             .cookie("accessToken", accessToken, options)
             .cookie("refreshToken", refreshToken, options)
-            .json(new ApiResponse(200, loggedInUser, "User logged in successfully"))
+            .json(new ApiResponse(200, loggedInUser, "Logged in successfully"))
 
     } catch (error) {
         next(error)
@@ -121,7 +121,7 @@ const logout = async (req, res, next) => {
         return res.status(200)
             .clearCookie("accessToken", options)
             .clearCookie("refreshToken", options)
-            .json(new ApiResponse(200, {}, "User logged out successfully"))
+            .json(new ApiResponse(200, {}, "Logged out successfully"))
     } catch (error) {
         next(error)
     }
