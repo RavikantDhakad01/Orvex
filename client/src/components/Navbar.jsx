@@ -3,21 +3,23 @@ import { useState } from "react"
 import { logout } from "../services/auth.services.js"
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth.jsx"
+import toast from "react-hot-toast";
 
 function Navbar() {
-    
+
     const [open, setOpen] = useState(false)
-    const {user,setUser} =useAuth()
+    const { user, setUser } = useAuth()
     const navigate = useNavigate()
 
     const handleLogout = async () => {
         try {
-            await logout()
+            const data = await logout()
             setUser(null)
+            toast.success(data.message)
+
             navigate("/login")
         } catch (error) {
-            console.log(error)
-             // TODO: Show toast/message: "Logout failed. Please try again."
+            toast.error("Failed to logout")
         }
     }
     return (
