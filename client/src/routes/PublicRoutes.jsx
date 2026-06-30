@@ -1,10 +1,9 @@
-import { useContext } from "react";
-import AuthContext from "../context/AuthContext";
+import useAuth from "../hooks/useAuth";
 import { Navigate, Outlet } from "react-router-dom";
 import Loader from "../components/Loader";
 
 function PublicRoutes() {
-    const { user, loading } = useContext(AuthContext)
+    const { user, loading } = useAuth()
     if (loading) {
         return <Loader />
     }

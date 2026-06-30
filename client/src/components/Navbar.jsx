@@ -1,13 +1,13 @@
 import { LogOut, User, ChevronDown, Mail, } from "lucide-react";
-import { useState, useContext } from "react"
+import { useState } from "react"
 import { logout } from "../services/auth.services.js"
-import AuthContext from "../context/AuthContext.jsx";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth.jsx"
 
 function Navbar() {
-    const { user } = useContext(AuthContext)
+    
     const [open, setOpen] = useState(false)
-    const { setUser } = useContext(AuthContext)
+    const {user,setUser} =useAuth()
     const navigate = useNavigate()
 
     const handleLogout = async () => {
