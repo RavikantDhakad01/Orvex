@@ -1,4 +1,4 @@
-import { Hexagon } from "lucide-react";
+import logo from "../assets/logo.svg"
 import Input from "../components/Input.jsx";
 import Button from "../components/Button.jsx";
 import { useState } from "react";
@@ -35,10 +35,7 @@ function ForgotPassword() {
             <div className="bg-slate-50  min-h-screen flex  justify-center items-center px-4">
                 <div className="bg-white flex flex-col gap-4 shadow-lg p-8 w-full max-w-md rounded-2xl">
                     <div className="flex gap-2 justify-center">
-                        <div className="cursor-pointer"><Hexagon
-                            size={40}
-                            className="text-blue-600"
-                        /></div>
+                        <div className="cursor-pointer"> <img src={logo} alt="Orvex Logo" className="w-10 h-10" /></div>
                         <h1 className="text-3xl font-bold">Orvex</h1>
                     </div>
                     <div className="flex items-center flex-col">

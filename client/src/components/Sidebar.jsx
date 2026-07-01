@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
-import { LayoutDashboard, Hexagon, BriefcaseBusiness, FolderKanban, ListTodo } from "lucide-react";
+import { LayoutDashboard, BriefcaseBusiness, FolderKanban, ListTodo } from "lucide-react";
+import logo from "../assets/logo.svg"
 
 function Sidebar() {
     return (
         <aside className="flex flex-col gap-7 w-64 bg-white min-h-screen p-3 shadow-lg border-r border-gray-200 z-20">
-            <div className="flex flex-row gap-1">
-                <Hexagon size={36} className="text-blue-800" />
+            <div className="flex flex-row gap-2">
+                 <img src={logo} alt="Orvex Logo" className="w-8 h-8" />
                 <h1 className="text-xl font-bold">Orvex</h1>
             </div>
             <nav>
