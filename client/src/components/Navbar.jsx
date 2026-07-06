@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth.jsx"
 import toast from "react-hot-toast";
 
-function Navbar({setIsSildebarOpen}) {
+function Navbar({setIsSidebarOpen}) {
 
-    const [openDropdown, setOpenDropdown] = useState(false)
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false)
     
     const { user, setUser } = useAuth()
     const navigate = useNavigate()
@@ -34,15 +34,15 @@ function Navbar({setIsSildebarOpen}) {
     return (
         <header className="z-10 sticky top-0">
             <nav>
-                <ul className="bg-white shadow flex items-center justify-between p-4 border-b border-gray-200">
-                    <li onClick={()=>setIsSildebarOpen(true)}><Menu className="lg:hidden"/></li>
+                <ul className="bg-white shadow-sm flex items-center justify-between p-4 border-b border-gray-200">
+                    <li ><Menu className=" cursor-pointer lg:hidden" onClick={()=>setIsSidebarOpen(true)}/></li>
                     <li className="relative">
-                        <button className="cursor-pointer flex items-center" onClick={() => setOpenDropdown(!openDropdown)}>
+                        <button className="cursor-pointer flex items-center" onClick={() => setIsDropdownOpen(pre=>!pre)}>
                             <div className="text-blue-800 flex justify-center items-center w-7 h-7 bg-blue-200 rounded-full">{user?.username?.charAt(0).toUpperCase()}</div>
                             <ChevronDown size={16} />
                         </button>
                         {
-                            openDropdown && (
+                            isDropdownOpen && (
                                 <div className="flex flex-col gap-2 absolute  right-0 top-11  w-64 bg-white shadow-md rounded-xl border border-gray-200 p-4 z-30">
                                     <div className="flex gap-2 items-center">
                                         <User size={18} /><span>{user?.username}</span></div>

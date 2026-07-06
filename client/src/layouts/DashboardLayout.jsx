@@ -3,13 +3,13 @@ import Navbar from "../components/Navbar.jsx"
 import { Outlet } from "react-router-dom"
 import { useState } from "react"
 function DashboardLayout() {
-    const [isSildebarOpen,setIsSildebarOpen]=useState(false)
+    const [isSidebarOpen,setIsSidebarOpen]=useState(false)
     return (
         <div className="flex  w-full">
 
-            <Sidebar isSildebarOpen={isSildebarOpen} setIsSildebarOpen={setIsSildebarOpen}/>
+            <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen}/>
             <div className="w-full">
-                <Navbar setIsSildebarOpen={setIsSildebarOpen}/>
+                <Navbar setIsSidebarOpen={setIsSidebarOpen}/>
                 <main className="p-8">
                     <Outlet />
                 </main>
