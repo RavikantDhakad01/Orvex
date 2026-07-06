@@ -1,13 +1,16 @@
 import { Link } from "react-router-dom";
-import { LayoutDashboard, BriefcaseBusiness, FolderKanban, ListTodo } from "lucide-react";
+import { LayoutDashboard, BriefcaseBusiness, FolderKanban, ListTodo,X} from "lucide-react";
 import logo from "../assets/logo.svg"
-
-function Sidebar() {
+import { useState } from "react";
+function Sidebar({ isSildebarOpen, setIsSildebarOpen }) {
+    
     return (
-        <aside className="flex flex-col gap-7 w-64 bg-white min-h-screen p-3 shadow-lg border-r border-gray-200 z-20">
-            <div className="flex flex-row gap-2">
+        <aside className={`flex flex-col gap-7 w-64 bg-white min-h-screen p-3 shadow-lg border-r border-gray-200 z-20 fixed left-0 top-0  lg:static transition-transform duration-300 ${isSildebarOpen?"translate-x-0":"-translate-x-full lg:translate-x-0"}`}>
+            <div className="flex flex-row gap-2 relative">
                  <img src={logo} alt="Orvex Logo" className="w-8 h-8" />
+               
                 <h1 className="text-xl font-bold">Orvex</h1>
+                <X size={26} strokeWidth={2.5} className="absolute right-2 top-0 lg:hidden" onClick={()=>setIsSildebarOpen(false)}/>
             </div>
             <nav>
                 <ul className="flex flex-col gap-2">
