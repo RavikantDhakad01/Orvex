@@ -34,7 +34,7 @@ const createWorkspace = async (req, res, next) => {
             owner: req.user._id
         }], { session })
 
-         await WorkspaceMember.create([{
+        await WorkspaceMember.create([{
             workspace: workspace._id,
             user: req.user._id,
             role: WORKSPACE_ROLE.OWNER
@@ -55,7 +55,11 @@ const createWorkspace = async (req, res, next) => {
 
 const getUserWorkspaces = async (req, res, next) => {
     try {
-
+        const members = await WorkspaceMember.find({ user: req.user._id }).populate({
+   path: "workspace",
+   select: "name description owner"
+})
+        return res.status(200).json(new ApiResponse(200,members,"User workspaces fechted successfully"))
     } catch (error) {
         next(error)
     }
