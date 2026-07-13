@@ -56,10 +56,10 @@ const createWorkspace = async (req, res, next) => {
 const getUserWorkspaces = async (req, res, next) => {
     try {
         const members = await WorkspaceMember.find({ user: req.user._id }).populate({
-   path: "workspace",
-   select: "name description owner"
-})
-        return res.status(200).json(new ApiResponse(200,members,"User workspaces fechted successfully"))
+            path: "workspace",
+            select: "name description owner"
+        })
+        return res.status(200).json(new ApiResponse(200, members, "User workspaces fechted successfully"))
     } catch (error) {
         next(error)
     }
@@ -67,7 +67,13 @@ const getUserWorkspaces = async (req, res, next) => {
 
 const getWorkspaceById = async (req, res, next) => {
     try {
+        const { workspaceId } = req.params
 
+        const workspace = await Workspace.findById(workspaceId)
+        if (!workspace) {
+            throw new ApiError(404, "Workspace does not exist")
+        }
+        return res.status(200).json(new ApiResponse(200,workspace,"Workspace details fetched successfully"))
     } catch (error) {
         next(error)
     }
