@@ -55,7 +55,7 @@ const inviteMember = async (req, res, next) => {
 
 const getUserInvitations = async (req, res, next) => {
     try {
-        const userPendingInvitations = await Invitation.find({ receiver: req.user._id, status: INVITATION_STATUS.PENDING }).populate("workspace","name").populate("sender","username email")
+        const userPendingInvitations = await Invitation.find({ receiver: req.user._id, status: INVITATION_STATUS.PENDING }).populate("workspace", "name").populate("sender", "username email")
         return res.status(200).json(new ApiResponse(200, userPendingInvitations, "User pending invitations fetched successfully"))
     } catch (error) {
         next(error)
@@ -63,10 +63,47 @@ const getUserInvitations = async (req, res, next) => {
 }
 
 const acceptInvitation = async (req, res, next) => {
+    const session = await mongoose.startSession();
     try {
+        const { invitationId } = req.params
+
+        const invitation = await Invitation.findById(invitationId)
+        if (!invitation) {
+            throw new ApiError(404, "Invitation does not exist")
+        }
+
+        if (invitation.receiver.toString() !== req.user._id.toString()) {
+            throw new ApiError(403, "This is not your invite")
+        }
+
+        if (invitation.status === INVITATION_STATUS.ACCEPTED || invitation.status === INVITATION_STATUS.REJECTED) {
+            throw new ApiError(409, "invitation is already processed")
+        }
+
+        if (invitation.expiresAt < new Date()) {
+            await Invitation.findByIdAndDelete(invitation._id)
+            throw new ApiError(400, "Invitation expired")
+        }
+
+        session.startTransaction()
+
+        await WorkspaceMember.create([{
+            workspace: invitation.workspace,
+            user: invitation.receiver
+        }], { session })
+
+        await Invitation.findByIdAndDelete(invitation._id, { session })
+
+        await session.commitTransaction()
+        return res.status(200).json(new ApiResponse(200, {}, "Now You are the member of workspace"))
 
     } catch (error) {
+        if (session.inTransaction()) {
+            await session.abortTransaction();
+        }
         next(error)
+    } finally {
+        session.endSession();
     }
 }
 
