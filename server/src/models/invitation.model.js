@@ -28,11 +28,16 @@ const invitationSchema = new Schema({
 
     status: {
         type: String,
-        enum: ["pending","accepted", "rejected"],
+        enum: ["pending", "accepted", "rejected"],
         default: "pending"
+    },
+
+    expiresAt: {
+        type: Date,
+        required: true
     }
 },
     { timestamps: true })
 
-const Invitation = mongoose.model("Invitation",invitationSchema)
+const Invitation = mongoose.model("Invitation", invitationSchema)
 export default Invitation
