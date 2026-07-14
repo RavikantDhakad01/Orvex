@@ -19,9 +19,11 @@ app.use(cors({
 
 import authRouter from "./routes/auth.routes.js"
 import healthCheckRouter  from "./routes/healthcheck.routes.js"
+import workspaceRouter from "./routes/workspace.routes.js"
 
-app.use("/api/v1/auth",authRouter)
 app.use("/api/v1/healthcheck",healthCheckRouter)
+app.use("/api/v1/auth",authRouter)
+app.use("/api/v1/workspaces",workspaceRouter)
 
 app.use(errorHandler)
 export default app
