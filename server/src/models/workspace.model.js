@@ -7,7 +7,8 @@ const workspaceSchema = new Schema({
         trim: true,
         minlength: 3,
         maxlength: 50,
-        required: true
+        required: true,
+        lowercase: true
     },
 
     description: {
