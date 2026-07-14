@@ -109,6 +109,21 @@ const acceptInvitation = async (req, res, next) => {
 
 const rejectInvitation = async (req, res, next) => {
     try {
+        const { invitationId } = req.params
+
+        const invitation = await Invitation.findById(invitationId)
+        if (!invitation) {
+            throw new ApiError(404, "Invitation does not exist")
+        }
+        if (invitation.receiver.toString() !== req.user._id.toString()) {
+            throw new ApiError(403, "This is not your invite")
+        }
+
+        if (invitation.status === INVITATION_STATUS.ACCEPTED || invitation.status === INVITATION_STATUS.REJECTED) {
+            throw new ApiError(409, "invitation is already processed")
+        }
+        await Invitation.findByIdAndDelete(invitation._id)
+        return res.status(200).json(new ApiResponse(200, {}, "Invitation rejected"))
 
     } catch (error) {
         next(error)
