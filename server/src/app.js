@@ -17,13 +17,15 @@ app.use(cors({
     allowedHeaders: ["Content-Type", "Authorization"]
 }))
 
-import authRouter from "./routes/auth.routes.js"
 import healthCheckRouter  from "./routes/healthcheck.routes.js"
+import authRouter from "./routes/auth.routes.js"
 import workspaceRouter from "./routes/workspace.routes.js"
+import invitationRouter  from "./routes/invitation.routes.js"
 
 app.use("/api/v1/healthcheck",healthCheckRouter)
 app.use("/api/v1/auth",authRouter)
 app.use("/api/v1/workspaces",workspaceRouter)
-
+app.use("/api/v1/invitations",invitationRouter)
 app.use(errorHandler)
+
 export default app
