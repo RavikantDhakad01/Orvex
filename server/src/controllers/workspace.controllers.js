@@ -3,6 +3,7 @@ import ApiError from "../utils/ApiError.js"
 import Workspace from "../models/workspace.model.js"
 import WorkspaceMember from "../models/workspaceMember.model.js"
 import { WORKSPACE_ROLE } from "../constants.js"
+import Invitation from "../models/invitation.model.js"
 
 const createWorkspace = async (req, res, next) => {
     const session = await mongoose.startSession();
@@ -148,10 +149,30 @@ const updateWorkspace = async (req, res, next) => {
 }
 
 const deleteWorkspace = async (req, res, next) => {
+    const session = await mongoose.startSession();
     try {
+        const { workspaceId } = req.params
+
+        session.startTransaction()
+
+        const deletedWorkspace = await Workspace.findByIdAndDelete(workspaceId, { session })
+        if (!deletedWorkspace) {
+            throw new ApiError(404, "Workspace does not exist");
+        }
+        
+        await WorkspaceMember.deleteMany({ workspace: workspaceId }, { session })
+        await Invitation.deleteMany({ workspace: workspaceId }, { session })
+
+        await session.commitTransaction()
+        return res.status(200).json(new ApiResponse(200, deletedWorkspace, "Workspace deleted successfully"))
 
     } catch (error) {
+        if (session.inTransaction()) {
+            await session.abortTransaction();
+        }
         next(error)
+    } finally {
+        session.endSession();
     }
 }
 
