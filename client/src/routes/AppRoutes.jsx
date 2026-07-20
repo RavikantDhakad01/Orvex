@@ -8,6 +8,7 @@ import Dashboard from "../pages/Dashboard.jsx"
 import DashboardLayout from "../layouts/DashboardLayout.jsx"
 import ProtectedRoutes from "./ProtectedRoutes.jsx"
 import PublicRoutes from "./PublicRoutes.jsx"
+import  Workspace from "../pages/workspace.jsx"
 function AppRoutes() {
     return (
         <>
@@ -24,6 +25,8 @@ function AppRoutes() {
                 <Route element={<ProtectedRoutes />}>
                     <Route element={<DashboardLayout />}>
                         <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/workspace" element={<Workspace />} />
+                         
                     </Route>
                 </Route>
 

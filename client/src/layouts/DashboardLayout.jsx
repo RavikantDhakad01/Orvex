@@ -10,7 +10,7 @@ function DashboardLayout() {
             <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen}/>
             <div className="w-full">
                 <Navbar setIsSidebarOpen={setIsSidebarOpen}/>
-                <main className="p-8">
+                <main className="p-6">
                     <Outlet />
                 </main>
             </div>
