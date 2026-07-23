@@ -6,10 +6,15 @@ import WorkspaceOverview from "../components/WorkspaceOverview.jsx"
 import EmptyStats from "../components/EmptyStats.jsx"
 import Button from "../components/Button.jsx"
 import Projects from "../components/projects.jsx"
+import Members from "../components/Members.jsx"
+import { act } from "react"
+import Model from "../components/Model.jsx"
+import EditModel from "../components/EditModel.jsx"
 
 function WorkspaceDetails() {
   const [activeTab, setActiveTab] = useState("Overview")
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+   const [isModelOpen, setIsModelOpen] = useState(false)
   return (
     <div className="relative">
 
@@ -20,7 +25,7 @@ function WorkspaceDetails() {
 
         {isMenuOpen && (
           <div className="absolute top-10 right-0 bg-white shadow-lg rounded-2xl flex flex-col p-4 gap-6">
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-2 items-center" onClick={()=>setIsModelOpen(true)}>
               <Pencil size={22} strokeWidth={1.5} />
               <span className="text-lg ">Edit WorkSpace</span>
             </div>
@@ -36,8 +41,9 @@ function WorkspaceDetails() {
 
       {/* <EmptyStats icon={<FolderOpen size={54}
     strokeWidth={1.25} className="text-blue-500"/>} heading="No projects yet" note="Get started by creating your first project" button={<Button text="+ Add Project" className="w-full py-4"/>}/> */}
-{/* <WorkspaceOverview/> */}
-<Projects/>
+<WorkspaceOverview/> 
+{/* <Members/> */}
+ {isModelOpen && <Model><EditModel setIsModelOpen={setIsModelOpen}/></Model>}
     </div>
 
     
