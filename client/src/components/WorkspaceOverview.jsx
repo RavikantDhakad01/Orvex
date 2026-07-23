@@ -4,7 +4,7 @@ import Avatar from "./Avatar"
 function WorkspaceOverview() {
     return (
         <div className="flex flex-col mt-4 gap-8">
-            <div>
+            <div className="flex flex-col gap-1">
  <span className="text-xl font-bold">description</span>
             <p className="text-lg">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciun accusantium alias adipisci!</p>
             </div>     
@@ -19,7 +19,7 @@ function WorkspaceOverview() {
                     <div className="flex gap-6 items-center">
                         <Avatar className="rounded-full"/>
                         <span className="font-bold text-base">Ravi</span>
-                        <span className="bg-yellow-100 text-yellow-400 rounded-lg py-1 px-2">Owner</span>
+                        <span className="bg-blue-100 text-blue-400 rounded-lg py-1 px-2">Owner</span>
                     </div>
                 </div>
                 <div className="flex flex-col mt-4 font-bold text-lg gap-1">

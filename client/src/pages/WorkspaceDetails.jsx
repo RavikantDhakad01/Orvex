@@ -1,8 +1,11 @@
 import Tab from "../components/Tab.jsx"
-import { ArrowLeft, EllipsisVertical, Pencil, Trash2, Users, Folder} from "lucide-react"
+import { ArrowLeft, EllipsisVertical, Pencil, Trash2, Users, Folder,BriefcaseBusiness,FolderOpen,UsersRound,MailOpen,ListChecks} from "lucide-react"
 import { useState } from "react"
 import Avatar from "../components/Avatar.jsx"
 import WorkspaceOverview from "../components/WorkspaceOverview.jsx"
+import EmptyStats from "../components/EmptyStats.jsx"
+import Button from "../components/Button.jsx"
+import Projects from "../components/projects.jsx"
 
 function WorkspaceDetails() {
   const [activeTab, setActiveTab] = useState("Overview")
@@ -31,8 +34,10 @@ function WorkspaceDetails() {
 
       <div className="mt-6"><Tab tabs={["Overview", "Projects", "Members"]} onClick={(e) => setActiveTab(e.target.innerText)} activeTab={activeTab} /></div>
 
-      <WorkspaceOverview />
-
+      {/* <EmptyStats icon={<FolderOpen size={54}
+    strokeWidth={1.25} className="text-blue-500"/>} heading="No projects yet" note="Get started by creating your first project" button={<Button text="+ Add Project" className="w-full py-4"/>}/> */}
+{/* <WorkspaceOverview/> */}
+<Projects/>
     </div>
 
     
