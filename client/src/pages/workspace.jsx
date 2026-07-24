@@ -8,7 +8,7 @@ function Workspace() {
 
     return (
         <>
-            <div>
+           
                 <div className="flex justify-between">
                     <h1 className="text-2xl font-bold">Workspaces</h1>
                     <Button text="+ Create" className="py-1 cursor-pointer" onClick={() => setModelOpen(true)} />
@@ -19,7 +19,7 @@ function Workspace() {
                     <WorkspaceCard />
                     <WorkspaceCard />
                 </div>
-            </div>
+            
             {isModelOpen && <Model><CreateModel setModelOpen={setModelOpen}/></Model>}
         </>
     )

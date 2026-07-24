@@ -10,6 +10,7 @@ import Members from "../components/Members.jsx"
 import { act } from "react"
 import Model from "../components/Model.jsx"
 import EditModel from "../components/EditModel.jsx"
+import DeleteModel from "../components/DeleteModel.jsx"
 
 function WorkspaceDetails() {
   const [activeTab, setActiveTab] = useState("Overview")
@@ -29,7 +30,7 @@ function WorkspaceDetails() {
               <Pencil size={22} strokeWidth={1.5} />
               <span className="text-lg ">Edit WorkSpace</span>
             </div>
-            <div className="flex gap-2 items-center text-red-500">
+            <div className="flex gap-2 items-center text-red-500" onClick={()=>setIsModelOpen(true)}>
               <Trash2 size={22} strokeWidth={1.5} />
               <span className="text-lg">Delete Workspace</span>
             </div>
@@ -39,11 +40,11 @@ function WorkspaceDetails() {
 
       <div className="mt-6"><Tab tabs={["Overview", "Projects", "Members"]} onClick={(e) => setActiveTab(e.target.innerText)} activeTab={activeTab} /></div>
 
-      {/* <EmptyStats icon={<FolderOpen size={54}
+  {/* <EmptyStats icon={<FolderOpen size={54}
     strokeWidth={1.25} className="text-blue-500"/>} heading="No projects yet" note="Get started by creating your first project" button={<Button text="+ Add Project" className="w-full py-4"/>}/> */}
-<WorkspaceOverview/> 
-{/* <Members/> */}
- {isModelOpen && <Model><EditModel setIsModelOpen={setIsModelOpen}/></Model>}
+{/* <WorkspaceOverview/>  */}
+<Members/>
+  {/* {isModelOpen && <Model><DeleteModel setIsModelOpen={setIsModelOpen}/></Model>}  */}
     </div>
 
     
