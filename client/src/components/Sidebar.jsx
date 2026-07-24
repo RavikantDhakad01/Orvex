@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { LayoutDashboard, BriefcaseBusiness, FolderKanban, ListTodo,X} from "lucide-react";
+import { LayoutDashboard, BriefcaseBusiness, FolderKanban, Mail, ListTodo,X} from "lucide-react";
 import logo from "../assets/logo.svg"
 function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
     
@@ -21,6 +21,15 @@ function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
                     <li>
                         <Link to="/workspace" className="flex gap-2  text-slate-700 hover:bg-slate-100 transition-colors rounded-lg py-1 px-2">
                             <BriefcaseBusiness size={22} className="font-bold" /> <span className="text-base "> Workspace</span>
+                        </Link>
+                    </li>
+                                        <li>
+                        <Link to="/invitation" className="flex justify-between  text-slate-700 hover:bg-slate-100 transition-colors rounded-lg py-1 px-2">
+                        <div className="flex gap-2">
+                             < Mail size={22} className="font-bold" /> <span className="text-base "> Invitations</span>
+                        </div>
+                           
+                            <div className="bg-blue-600 text-white rounded-full h-6 w-6 flex justify-center items-center">{"2"}</div>
                         </Link>
                     </li>
                     <li>
