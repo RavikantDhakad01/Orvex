@@ -22,8 +22,8 @@ function CreateModel({ setModelOpen }) {
                     }} />
 
                     <div className="flex justify-center gap-4">
-                        <Button text="Cancel" className="text-black border border-gray-600 bg-white py-0"/>
-                         <Button text="Create"/>
+                        <Button text="Cancel" className="text-black border border-gray-600 bg-white py-0" type="button"  onClick={() => setModelOpen(false)}/>
+                         <Button text="Create" type="submit"/>
                     </div>
                 </form>
             </div>
