@@ -9,6 +9,8 @@ import DashboardLayout from "../layouts/DashboardLayout.jsx"
 import ProtectedRoutes from "./ProtectedRoutes.jsx"
 import PublicRoutes from "./PublicRoutes.jsx"
 import  Workspace from "../pages/workspace.jsx"
+import WorkspaceDetails from "../pages/WorkspaceDetails.jsx"
+import Invitation from "../pages/Invitation.jsx"
 function AppRoutes() {
     return (
         <>
@@ -26,9 +28,11 @@ function AppRoutes() {
                     <Route element={<DashboardLayout />}>
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/workspace" element={<Workspace />} />
+                         <Route path="/workspace-details" element={<WorkspaceDetails />} />
+                          <Route path="/invitations" element={<Invitation />} />
                          
                     </Route>
-                </Route>
+              </Route> 
 
 
             </Routes>
