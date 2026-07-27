@@ -4,7 +4,7 @@ function WorkspaceCard() {
     return (
         <div className="flex flex-col gap-3 shadow-md rounded-lg p-4 cursor-pointer">
 
-         <div className="flex gap-4 ">
+         <div className="flex gap-4">
                 <Avatar />
             <div>
                 <h2 className="font-bold text-lg">
