@@ -43,7 +43,7 @@ function WorkspaceDetails() {
  {/* <WorkspaceOverview/>   */}
  {/* <Members/>  */}
   <Projects/>
-   {isModelOpen && <Model><DeleteModel setIsModelOpen={setIsModelOpen}/></Model>}  
+   {isModelOpen && <Model><EditModel setIsModelOpen={setIsModelOpen}/></Model>}  
     </div>
 
     

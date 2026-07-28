@@ -23,7 +23,7 @@ function EditModel({ setIsModelOpen }) {
                     }} />
 
                     <div className="flex justify-center gap-4">
-                        <Button text="Cancel" className="text-black border border-gray-600 bg-white py-0"/>
+                        <Button text="Cancel" className="text-black border border-gray-600 bg-white"/>
                          <Button text="Save Changes"/>
                     </div>
                 </form>
