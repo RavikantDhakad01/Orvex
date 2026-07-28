@@ -40,8 +40,9 @@ function WorkspaceDetails() {
 
       <div className="mt-6"><Tab tabs={["Overview", "Projects", "Members"]} onClick={(tab) => setActiveTab(tab)} activeTab={activeTab} /></div>
 
- <WorkspaceOverview/>  
-{/* <Members/> */}
+ {/* <WorkspaceOverview/>   */}
+ {/* <Members/>  */}
+  <Projects/>
    {isModelOpen && <Model><DeleteModel setIsModelOpen={setIsModelOpen}/></Model>}  
     </div>
 

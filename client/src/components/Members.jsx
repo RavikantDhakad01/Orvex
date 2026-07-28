@@ -8,7 +8,7 @@ function Members() {
     return (
         <>
             <div className=" flex flex-col gap-10 mt-8">
-                <div className=" flex flex-col gap-8">
+                <div className=" flex flex-col gap-5">
                     <MemberCard />
                     <MemberCard />
                     <MemberCard />
