@@ -10,7 +10,7 @@ function Projects({ className }) {
                 <ProjectCard />
                 <ProjectCard />
             </div>
-            <Button text="+ Add Project" />
+            <Button text="+ Add Project" className="py-3" />
         </div>
     )
 }

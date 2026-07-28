@@ -11,7 +11,7 @@ function ProjectCard() {
           <p className="text-gray-600">Updated 2 days ago</p>
         </div>
       </div>
-      <EllipsisVertical />
+      <EllipsisVertical className="cursor-pointer"/>
     </div>
   )
 }
