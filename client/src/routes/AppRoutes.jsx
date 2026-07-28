@@ -29,7 +29,7 @@ function AppRoutes() {
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/workspace" element={<Workspace />} />
                          <Route path="/workspace-details" element={<WorkspaceDetails />} />
-                          <Route path="/invitations" element={<Invitation />} />
+                          <Route path="/invitation" element={<Invitation />} />
                          
                     </Route>
               </Route> 

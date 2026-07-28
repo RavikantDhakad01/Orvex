@@ -11,7 +11,7 @@ function InvitationCard(){
                     Orvex Team
                 </h2>
                 <p className="text-gray-700">Invited by Ravi kumar</p>
-                <span className="text-gray-00">2 days ago</span>
+                <span className="text-gray-600">2 days ago</span>
             </div>
 
          </div>
