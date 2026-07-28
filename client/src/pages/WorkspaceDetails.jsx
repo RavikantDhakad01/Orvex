@@ -11,6 +11,7 @@ import { act } from "react"
 import Model from "../components/Model.jsx"
 import EditModel from "../components/EditModel.jsx"
 import DeleteModel from "../components/DeleteModel.jsx"
+import InviteModel from "../components/InviteModel.jsx"
 
 function WorkspaceDetails() {
   const [activeTab, setActiveTab] = useState("Overview")
@@ -41,9 +42,9 @@ function WorkspaceDetails() {
       <div className="mt-6"><Tab tabs={["Overview", "Projects", "Members"]} onClick={(tab) => setActiveTab(tab)} activeTab={activeTab} /></div>
 
  {/* <WorkspaceOverview/>   */}
- {/* <Members/>  */}
-  <Projects/>
-   {isModelOpen && <Model><EditModel setIsModelOpen={setIsModelOpen}/></Model>}  
+  <Members/>  
+  {/* <Projects/> */}
+   {isModelOpen && <Model><InviteModel setIsModelOpen={setIsModelOpen}/></Model>}  
     </div>
 
     
