@@ -1,5 +1,5 @@
 import Tab from "../components/Tab.jsx"
-import { ArrowLeft, EllipsisVertical, Pencil, Trash2, Users, Folder,BriefcaseBusiness,FolderOpen,UsersRound,MailOpen,ListChecks} from "lucide-react"
+import { ArrowLeft, EllipsisVertical, Pencil, Trash2, Users,ListChecks} from "lucide-react"
 import { useState } from "react"
 import Avatar from "../components/Avatar.jsx"
 import WorkspaceOverview from "../components/WorkspaceOverview.jsx"
