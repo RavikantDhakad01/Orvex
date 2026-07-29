@@ -3,9 +3,8 @@ function Dashboard() {
 const {user} = useAuth()
     return (
         <>
-            <div className="flex flex-col gap-2">
-                <h1 className="font-bold text-2xl">Welcome to Orvex 🚀</h1>
-                <h3 className="font-semibold text-lg">Hello, { user?.username}👋</h3>
+            <div className="flex justify-center items-center text-xl text-gray-600">
+                comming soon...
             </div>
         </>
     )
