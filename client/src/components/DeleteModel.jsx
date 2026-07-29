@@ -2,7 +2,7 @@ import { useState } from "react"
 import Button from "./Button.jsx"
 import { Trash2 } from "lucide-react"
 
-function DeleteModel({ setIsModelOpen }) {
+function DeleteModel({ setIsDeleteModelOpen }) {
 
     return (
         <>
@@ -18,8 +18,8 @@ function DeleteModel({ setIsModelOpen }) {
                 </div>
 
                 <div className="flex flex-col gap-4 w-full">
-                    <Button text="Delete Workspace" className="bg-red-600 py-3 " type="button" />
-                    <Button text="Cancel" className="text-black border border-gray-600 bg-white py-3" />
+                    <Button text="Delete Workspace" className="bg-red-600 py-3 cursor-pointer" type="button" />
+                    <Button text="Cancel" className="text-black border border-gray-600 bg-white py-3 cursor-pointer" onClick={()=>setIsDeleteModelOpen(false)}/>
                 </div>
             </div>
 

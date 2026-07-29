@@ -1,4 +1,4 @@
-import { Users, Folder } from "lucide-react"
+import { Users, Folder} from "lucide-react"
 import Avatar from "./Avatar"
 
 function WorkspaceOverview() {
@@ -16,9 +16,12 @@ function WorkspaceOverview() {
             <div>
                 <div className="flex flex-col gap-2">
                     <span className="font-bold text-lg">Created by</span>
-                    <div className="flex gap-3 items-center">
-                        <Avatar className="rounded-full"/>
+                    <div className="flex gap-10">
+                        <div className="flex items-center gap-4">
+                             <Avatar className="rounded-full"/>
                         <span className="font-bold text-base">Ravi</span>
+                        </div>
+                       
                         <span className="bg-slate-100
 text-slate-700 rounded-lg py-1 px-2">Owner</span>
                     </div>
@@ -29,6 +32,8 @@ text-slate-700 rounded-lg py-1 px-2">Owner</span>
                 </div>
             </div>
         </div>
+
+
     )
 }
 export default WorkspaceOverview

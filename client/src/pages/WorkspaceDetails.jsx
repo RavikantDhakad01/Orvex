@@ -12,26 +12,31 @@ import Model from "../components/Model.jsx"
 import EditModel from "../components/EditModel.jsx"
 import DeleteModel from "../components/DeleteModel.jsx"
 import InviteModel from "../components/InviteModel.jsx"
+import { useNavigate } from "react-router-dom";
 
 function WorkspaceDetails() {
   const [activeTab, setActiveTab] = useState("Overview")
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-   const [isModelOpen, setIsModelOpen] = useState(false)
+   const [isEditModelOpen, setIsEditModelOpen] = useState(false)
+   const [isDeleteModelOpen, setIsDeleteModelOpen] = useState(false)
+   const navigate = useNavigate()
   return (
     <div className="relative">
 
       <div className="flex justify-between ">
-        <ArrowLeft size={26} className="cursor-pointer"/>
+        <ArrowLeft size={26} className="cursor-pointer" onClick={()=>{navigate("/workspace")}}/>
         <h1 className="font-bold text-xl">{"Orvex Team"}</h1>
         <EllipsisVertical size={26} onClick={() => setIsMenuOpen(pre => !pre)} className="cursor-pointer"/>
 
         {isMenuOpen && (
           <div className="absolute top-10 right-0 bg-white shadow-lg rounded-2xl flex flex-col p-4 gap-6">
-            <div className="flex gap-2 items-center cursor-pointer" onClick={()=>setIsModelOpen(true)}>
-              <Pencil size={22} strokeWidth={1.5} />
+            <div className="flex gap-2 items-center cursor-pointer"  onClick={()=>{setIsEditModelOpen(true)
+              }}>
+              <Pencil size={22} strokeWidth={1.5}/>
               <span className="text-lg ">Edit Workspace</span>
             </div>
-            <div className="flex gap-2 items-center text-red-500" onClick={()=>setIsModelOpen(true)}>
+            <div className="flex gap-2 items-center text-red-500 cursor-pointer" onClick={()=>{setIsDeleteModelOpen(true)
+              }}>
               <Trash2 size={22} strokeWidth={1.5} />
               <span className="text-lg">Delete Workspace</span>
             </div>
@@ -41,10 +46,13 @@ function WorkspaceDetails() {
 
       <div className="mt-6"><Tab tabs={["Overview", "Projects", "Members"]} onClick={(tab) => setActiveTab(tab)} activeTab={activeTab} /></div>
 
- {/* <WorkspaceOverview/>   */}
-  <Members/>  
-  {/* <Projects/> */}
-   {isModelOpen && <Model><InviteModel setIsModelOpen={setIsModelOpen}/></Model>}  
+
+  {activeTab==="Overview"&& (<WorkspaceOverview/> )}
+  {activeTab==="Projects"&& (<Projects/> )}
+  {activeTab==="Members"&& (<Members/> )}
+
+   {isEditModelOpen && <Model><EditModel setIsEditModelOpen={setIsEditModelOpen}/></Model>}  
+   {isDeleteModelOpen && <Model><DeleteModel setIsDeleteModelOpen={setIsDeleteModelOpen}/></Model>}  
     </div>
 
     
