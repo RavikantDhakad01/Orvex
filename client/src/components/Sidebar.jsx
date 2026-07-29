@@ -14,17 +14,17 @@ function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
             <nav>
                 <ul className="flex flex-col gap-2">
                     <li>
-                        <Link to="/dashboard" className="flex gap-2  bg-blue-100 rounded-lg py-1 px-2 text-blue-700">
+                        <Link to="/dashboard" className="flex gap-2  bg-blue-100 rounded-lg py-1 px-2 text-blue-700" onClick={()=> setIsSidebarOpen(false)}>
                             <LayoutDashboard size={22} className="font-bold" /> <span className="text-base ">Dashboard</span>
                         </Link>
                     </li>
                     <li>
-                        <Link to="/workspace" className="flex gap-2  text-slate-700 hover:bg-slate-100 transition-colors rounded-lg py-1 px-2">
+                        <Link to="/workspace" className="flex gap-2  text-slate-700 hover:bg-slate-100 transition-colors rounded-lg py-1 px-2" onClick={()=> setIsSidebarOpen(false)}>
                             <BriefcaseBusiness size={22} className="font-bold" /> <span className="text-base "> Workspace</span>
                         </Link>
                     </li>
                                         <li>
-                        <Link to="/invitation" className="flex justify-between  text-slate-700 hover:bg-slate-100 transition-colors rounded-lg py-1 px-2">
+                        <Link to="/invitation" className="flex justify-between  text-slate-700 hover:bg-slate-100 transition-colors rounded-lg py-1 px-2" onClick={()=> setIsSidebarOpen(false)}>
                         <div className="flex gap-2">
                              < Mail size={22} className="font-bold" /> <span className="text-base "> Invitations</span>
                         </div>
@@ -33,12 +33,12 @@ function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
                         </Link>
                     </li>
                     <li>
-                        <Link to="/project" className="flex gap-2  text-slate-700 hover:bg-slate-100 transition-colors rounded-lg py-1 px-2">
+                        <Link to="/project" className="flex gap-2  text-slate-700 hover:bg-slate-100 transition-colors rounded-lg py-1 px-2" onClick={()=> setIsSidebarOpen(false)}>
                             <FolderKanban size={22} className="font-bold" /> <span className="text-base">Projects</span>
                         </Link>
                     </li>
                     <li>
-                        <Link to="/task" className="flex gap-2  text-slate-700 hover:bg-slate-100 transition-colors rounded-lg py-1 px-2">
+                        <Link to="/task" className="flex gap-2  text-slate-700 hover:bg-slate-100 transition-colors rounded-lg py-1 px-2" onClick={()=> setIsSidebarOpen(false)}>
                             <ListTodo size={22} className=" font-bold" /> <span className="text-base ">Tasks</span>
                         </Link>
                     </li>
