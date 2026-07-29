@@ -10,13 +10,15 @@ function DashboardLayout() {
         <div className="flex  w-full">
 
             <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen}/>
-            <div className="w-full" onClick={()=>{
+
+            <div className=" flex flex-col w-full min-h-screen" onClick={()=>{
                 if(isSidebarOpen){
                     setIsSidebarOpen(false)
                 }
             }}>
                 <Navbar setIsSidebarOpen={setIsSidebarOpen} setIsDropdownOpen={setIsDropdownOpen} isDropdownOpen={isDropdownOpen}/>
-                <main className="p-6" onClick={()=>setIsDropdownOpen(false)}>
+
+                <main className="flex-1 p-6" onClick={()=>setIsDropdownOpen(false)}>
                     <Outlet />
                 </main>
             </div>
