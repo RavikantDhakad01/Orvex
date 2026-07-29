@@ -1,4 +1,3 @@
-import { X } from "lucide-react"
 import Input from "../components/Input.jsx"
 import { useState } from "react"
 import TextArea from "../components/TestArea.jsx"
@@ -47,9 +46,11 @@ function CreateModel({ setModelOpen }) {
         <>
             <div className="flex relative flex-col">
                 <h1 className="text-center font-bold text-lg">Create Workspace</h1>
-                <X size={26} strokeWidth={2} className="cursor-pointer absolute top-0 right-0" onClick={() => setModelOpen(false)} />
+               
                 <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-                    <Input label="Name" type="text" placeholder="Enter workspace name" name="workspaceName" id="workspaceName" value={name} onChange={(e) => {
+
+                    <div className="flex flex-col gap-2">
+                         <Input label="Name" type="text" placeholder="Enter workspace name" name="workspaceName" id="workspaceName" value={name} onChange={(e) => {
                         setName(e.target.value)
                         setErrors((pre) => {
                             const newErrors = { ...pre }
@@ -64,7 +65,10 @@ function CreateModel({ setModelOpen }) {
                         )
                     }
 
-                    <TextArea label="Description (optional)" type="text" placeholder="Enter description" name="workspaceDescription" id="workspaceDescription" value={description} onChange={(e) => {
+                    </div>
+
+                   <div className="flex flex-col gap-2">
+                      <TextArea label="Description (optional)" type="text" placeholder="Enter description" name="workspaceDescription" id="workspaceDescription" value={description} onChange={(e) => {
                         setDescription(e.target.value)
                         setErrors((pre) => {
                             const newErrors = { ...pre }
@@ -78,6 +82,8 @@ function CreateModel({ setModelOpen }) {
                             <p className="text-sm text-red-500">{errors.description}</p>
                         )
                     }
+                   </div>
+                  
                     <div className="flex justify-center gap-4">
                         <Button text="Cancel" className="text-black border border-gray-600 bg-white py-0 cursor-pointer" type="button" onClick={() => setModelOpen(false)} />
                         <Button text="Create" type="submit" className="cursor-pointer" />

@@ -26,7 +26,7 @@ function Workspace() {
 
              <EmptyStats icon={<BriefcaseBusiness size={54}
                 strokeWidth={1.25} className="text-blue-500" />} heading="No workspaces yet" note="Get started by creating your first workspace">
-                <Button text="+ Create Workspace" className="w-full py-4" onClick={() => setModelOpen(true)} />
+                <Button text="+ Create Workspace" className="w-full py-4 cursor-pointer" onClick={() => setModelOpen(true)} />
             </EmptyStats>
         </>
     )
