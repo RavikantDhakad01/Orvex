@@ -5,10 +5,8 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth.jsx"
 import toast from "react-hot-toast";
 import Avatar from "./Avatar.jsx";
-function Navbar({setIsSidebarOpen}) {
+function Navbar({setIsSidebarOpen,isDropdownOpen,setIsDropdownOpen}) {
 
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-    
     const { user, setUser } = useAuth()
     const navigate = useNavigate()
 
