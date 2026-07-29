@@ -29,7 +29,7 @@ function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
                              < Mail size={22} className="font-bold" /> <span className="text-base "> Invitations</span>
                         </div>
                            
-                            <div className="bg-blue-600 text-white rounded-full h-6 w-6 flex justify-center items-center">{"2"}</div>
+                            <div className="bg-blue-600 text-white rounded-full h-5 w-5 flex justify-center items-center">{"2"}</div>
                         </Link>
                     </li>
                     <li>
