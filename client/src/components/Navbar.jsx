@@ -4,7 +4,7 @@ import { logout } from "../services/auth.services.js"
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth.jsx"
 import toast from "react-hot-toast";
-
+import Avatar from "./Avatar.jsx";
 function Navbar({setIsSidebarOpen}) {
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false)
