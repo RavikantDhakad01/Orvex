@@ -1,6 +1,11 @@
-function EmptyStats({ icon, heading, note, button,children}) {
+import { twMerge } from "tailwind-merge";
+
+function EmptyStats({ icon, heading, note, button,children, className}) {
     return (
-        <div className="flex flex-col items-center gap-16  pt-20">
+        <div className={twMerge(
+                "flex flex-col items-center gap-16  pt-20",
+                className
+            )}>
             <div className="flex flex-col items-center gap-4">
                 <div className="flex items-center justify-center bg-blue-100 w-24 h-24 rounded-full">{icon}</div>
                 <div className=" flex flex-col items-center gap-1">
@@ -15,3 +20,4 @@ function EmptyStats({ icon, heading, note, button,children}) {
 }
 export default EmptyStats
 
+//

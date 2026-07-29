@@ -17,8 +17,8 @@ function InvitationCard(){
          </div>
 
          <div className="flex justify-center gap-6 ">
-<Button text="Reject" className="bg-transparent text-red-700 border border-red-500 w-full"/>
-<Button text="Accept" className="w-full"/>
+<Button text="Reject" className="bg-transparent text-red-700 border border-red-500 w-full cursor-pointer"/>
+<Button text="Accept" className="w-full cursor-pointer"/>
          </div>
       </div>
     )
