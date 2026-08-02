@@ -3,6 +3,7 @@ import bcrypt from "bcrypt"
 import crypto from "crypto"
 import mongoose, { Schema } from "mongoose";
 import { type } from "os";
+import {AVATAR_COLORS} from "../constants.js"
 
 const userSchema = new Schema({
 
@@ -42,6 +43,12 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: [true, "Password is required"]
+    },
+
+    avatarColor: {
+        type: String,
+        enum: AVATAR_COLORS,
+        required: true
     },
 
     isEmailVerified: {

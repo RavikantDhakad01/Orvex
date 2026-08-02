@@ -1,6 +1,7 @@
 import User from "../models/user.model.js"
 import ApiError from "../utils/ApiError.js"
 import ApiResponse from "../utils/ApiResponse.js"
+import getRandomAvatarColor from "../utils/randomColor.js"
 
 const generateAccessAndRefreshTokens = async (userId) => {
 
@@ -33,8 +34,8 @@ const register = async (req, res, next) => {
             throw new ApiError(400, "Username must be 3-20 characters and can only contain letters, numbers and underscores")
         }
 
-         if (email && !/\S+@\S+\.\S+/.test(email)) {
-           throw new ApiError(400, "Please enter a valid email address")
+        if (email && !/\S+@\S+\.\S+/.test(email)) {
+            throw new ApiError(400, "Please enter a valid email address")
         }
 
         if (password.trim().length < 8) {
@@ -52,7 +53,8 @@ const register = async (req, res, next) => {
         const user = await User.create({
             username: username.trim().toLowerCase(),
             email: email.trim().toLowerCase(),
-            password: password.trim()
+            password: password.trim(),
+            avatarColor:getRandomAvatarColor()
         })
 
         const createdUser = await User.findById(user._id).select("-password -refreshToken")

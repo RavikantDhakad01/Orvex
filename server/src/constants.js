@@ -9,4 +9,15 @@ const INVITATION_STATUS = {
     REJECTED: "rejected"
 }
 
-export { WORKSPACE_ROLE, INVITATION_STATUS }
+const AVATAR_COLORS = [
+    "blue",
+    "green",
+    "purple",
+    "red",
+    "orange",
+    "yellow",
+    "pink",
+    "cyan",
+];
+
+export { WORKSPACE_ROLE, INVITATION_STATUS,AVATAR_COLORS }
