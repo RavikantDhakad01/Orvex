@@ -21,17 +21,30 @@ const generateAccessAndRefreshTokens = async (userId) => {
 const register = async (req, res, next) => {
     try {
         const { username, email, password } = req.body
+
         if ([username, email, password].some((field) => !field?.trim())) {
             throw new ApiError(400, "All fields are required")
         }
-        
+
+        if (
+            username &&
+            !/^[a-zA-Z0-9_]{3,20}$/.test(username.trim())
+        ) {
+            throw new ApiError(400, "Username must be 3-20 characters and can only contain letters, numbers and underscores")
+        }
+
+         if (email && !/\S+@\S+\.\S+/.test(email)) {
+           throw new ApiError(400, "Please enter a valid email address")
+        }
+
         if (password.trim().length < 8) {
-            throw new ApiError(400,"Password must be at least 8 characters long")
+            throw new ApiError(400, "Password must be at least 8 characters long")
         }
 
         const existedUser = await User.findOne({
             $or: [{ email: email.trim().toLowerCase() }, { username: username.trim().toLowerCase() }]
         })
+
         if (existedUser) {
             throw new ApiError(409, "User already exists with this email or username")
         }

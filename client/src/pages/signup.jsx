@@ -29,6 +29,14 @@ function Signup() {
             newErrors.username = "Username is required"
         }
 
+        if (
+            username &&
+            !/^[a-zA-Z0-9_]{3,20}$/.test(username.trim())
+        ) {
+            newErrors.username =
+                "Username must be 3-20 characters and can only contain letters, numbers and underscores";
+        }
+        
         if (!email.trim()) {
             newErrors.email = "Email is required"
         }
