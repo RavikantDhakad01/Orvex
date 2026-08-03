@@ -69,7 +69,18 @@ const getUserWorkspaces = async (req, res, next) => {
             path: "workspace",
             select: "name description owner"
         })
-        return res.status(200).json(new ApiResponse(200, members, "User workspaces fechted successfully"))
+        console.log(members)
+        const result = []
+        for (const member of members) {
+            const memberCount = await WorkspaceMember.countDocuments({ workspace: member.workspace._id })
+
+            // TODO:add projectCount too
+            result.push({
+                workspace:member.workspace,
+                memberCount
+            })
+        }
+        return res.status(200).json(new ApiResponse(200, result, "User workspaces fechted successfully"))
     } catch (error) {
         next(error)
     }
@@ -160,7 +171,7 @@ const deleteWorkspace = async (req, res, next) => {
         if (!deletedWorkspace) {
             throw new ApiError(404, "Workspace does not exist");
         }
-        
+
         await WorkspaceMember.deleteMany({ workspace: workspaceId }, { session })
         await Invitation.deleteMany({ workspace: workspaceId }, { session })
 
