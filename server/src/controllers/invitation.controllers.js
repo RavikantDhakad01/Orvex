@@ -56,7 +56,7 @@ const inviteMember = async (req, res, next) => {
 
 const getUserInvitations = async (req, res, next) => {
     try {
-        const userPendingInvitations = await Invitation.find({ receiver: req.user._id, status: INVITATION_STATUS.PENDING }).populate("workspace", "name").populate("sender", "username email")
+        const userPendingInvitations = await Invitation.find({ receiver: req.user._id, status: INVITATION_STATUS.PENDING }).populate("workspace", "name  avatarColor").populate("sender", "username email")
         return res.status(200).json(new ApiResponse(200, userPendingInvitations, "User pending invitations fetched successfully"))
     } catch (error) {
         next(error)
