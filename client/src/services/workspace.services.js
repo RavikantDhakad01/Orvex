@@ -20,8 +20,8 @@ const updateWorkspace=async (data) => {
     return res.data
 }
 
-const deleteWorkspace = async () => {
-    const res = await api.delete("/workspaces/:workspaceId")
+const deleteWorkspace = async (workspaceId) => {
+    const res = await api.delete(`/workspaces/${workspaceId}`)
     return res.data
 }
 
