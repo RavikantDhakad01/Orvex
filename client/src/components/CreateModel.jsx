@@ -102,8 +102,8 @@ function CreateModel({ setModelOpen }) {
                     </div>
 
                     <div className="flex justify-center gap-4">
-                        <Button text="Cancel" className="text-black border border-gray-600 bg-white py-0 cursor-pointer" type="button" onClick={() => setModelOpen(false)} />
-                        <Button text={loading ? "Creating..." : "Create"} type="submit" className={`${loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`} />
+                        <Button text="Cancel" className="text-black border border-gray-600 bg-white py-0 cursor-pointer" type="button" onClick={() => setModelOpen(false)} disabled={loading}/>
+                        <Button text={loading ? "Creating..." : "Create"} type="submit" className={loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"} disabled={loading}/>
                     </div>
                 </form>
             </div>
