@@ -3,7 +3,7 @@ import Button from "./Button.jsx"
 import EmptyStats from "./EmptyStats.jsx"
 import {FolderOpen} from "lucide-react"
 
-function Projects({ className }) {
+function Projects({ className,isOwner}) {
     return (
         // <div className=" flex flex-col gap-10 mt-8">
         //     <div  className=" flex flex-col gap-4">
@@ -16,8 +16,8 @@ function Projects({ className }) {
         // </div>
 
           <EmptyStats icon={<FolderOpen size={54}
-                strokeWidth={1.25} className="text-blue-500" />} heading="No projects yet" note="Get started by creating your first project">
-                <Button text="+ Create Project" className="w-full py-4 cursor-pointer" />
+                strokeWidth={1.25} className="text-blue-500" />} heading="No projects yet" note={isOwner ? "Get started by creating your first project" : ""}>
+               {isOwner && <Button text="+ Create Project" className="w-full py-4 cursor-pointer" />}
             </EmptyStats>
     )
 }

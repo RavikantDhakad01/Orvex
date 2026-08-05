@@ -4,27 +4,24 @@ import { useState } from "react"
 import InviteModel from "../components/InviteModel.jsx"
 import Model from "./Model.jsx"
 import EmptyStats from "./EmptyStats.jsx"
-import {UsersRound} from "lucide-react"
+import { UsersRound } from "lucide-react"
 
-function Members() {
+function Members({ isOwner, workspaceData }) {
     const [isInviteModelOpen, setIsInviteModelOpen] = useState(false)
+    // console.log(isOwner)
+    console.log(workspaceData)
     return (
         <>
-            {/* <div className=" flex flex-col gap-10 mt-8">
+            <div className=" flex flex-col gap-10 mt-8">
                 <div className=" flex flex-col gap-5">
-                    <MemberCard />
-                    <MemberCard />
-                    <MemberCard />
-                    <MemberCard />
+                    {
+                        workspaceData.members.map((member) => <MemberCard key={member._id} member={member.user} isOwner={member.user._id.toString() === workspaceData.workspace.owner._id.toString()} />)
+                    }
+
                 </div>
-                <Button text="+ Invite Member" onClick={() => setIsInviteModelOpen(true)} />
+                {isOwner && <Button text="+ Invite Member" onClick={() => setIsInviteModelOpen(true)} />}
 
-            </div> */}
-
-            <EmptyStats icon={<UsersRound size={54}
-                strokeWidth={1.25} className="text-blue-500" />} heading="No members yet" note="Get started by inviting your first member">
-                <Button text="+ Invite Member" className="w-full py-4 cursor-pointer" onClick={() => setIsInviteModelOpen(true)} />
-            </EmptyStats>
+            </div>
             {isInviteModelOpen && <Model><InviteModel setIsInviteModelOpen={setIsInviteModelOpen} /></Model>}
         </>
 
@@ -32,5 +29,4 @@ function Members() {
 }
 export default Members
 
-// 
 

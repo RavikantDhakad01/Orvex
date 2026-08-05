@@ -31,7 +31,7 @@ function AppRoutes() {
                   <Route element={<DashboardLayout />}>
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/workspace" element={<Workspace />} />
-                         <Route path="/workspace-details" element={<WorkspaceDetails />} />
+                         <Route path="/workspace/:workspaceId" element={<WorkspaceDetails />} />
                           <Route path="/invitation" element={<Invitation />} />
                           <Route path="/project" element={<Project />} />
                            <Route path="/task" element={<Task />} />

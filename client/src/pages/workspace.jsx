@@ -8,12 +8,14 @@ import { BriefcaseBusiness } from "lucide-react"
 import { getUserWorkspaces, createWorkspace } from "../services/workspace.services.js"
 import toast from "react-hot-toast";
 import Loader from "../components/Loader.jsx"
+import { useNavigate } from "react-router-dom"
+useNavigate
 
 function Workspace() {
     const [isModelOpen, setModelOpen] = useState(false)
     const [loading, setLoading] = useState(true)
     const [workspaces, setWorkspaces] = useState([])
-
+    const navigate = useNavigate()
 
     useEffect(() => {
 
@@ -22,7 +24,6 @@ function Workspace() {
             try {
                 const workspaces = await getUserWorkspaces();
                 setWorkspaces(workspaces.data);
-                console.log(workspaces.data)
             } catch (error) {
                 if (error.response) {
                     toast.error(error.response.data.message || "Something went wrong. Please refresh");
@@ -35,7 +36,6 @@ function Workspace() {
                 console.error(error);
             } finally {
                 setLoading(false);
-                console.log("finally")
             }
         };
 
@@ -44,7 +44,7 @@ function Workspace() {
     }, []);
 
     if (loading) {
-        return <Loader/>;
+        return <Loader />;
     }
     return (
         <>
@@ -58,7 +58,9 @@ function Workspace() {
 
                         <div className="flex flex-col gap-4 mt-6">
 
-                            {workspaces.map((w) => <WorkspaceCard workspace={w.workspace} key={w._id} />)}
+                            {workspaces.map((w) => <WorkspaceCard workspaceDetails={w} key={w.workspace._id} onClick={() => {
+navigate(`/workspace/${w.workspace._id}`)
+                            }} />)}
 
                         </div>
                     </>) : (<>

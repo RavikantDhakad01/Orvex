@@ -10,8 +10,8 @@ const getUserWorkspaces = async () => {
     return res.data
 }
 
-const getWorkspaceById = async () => {
-    const res = await api.get("/workspaces/:workspaceId")
+const getWorkspaceById = async (workspaceId) => {
+    const res = await api.get(`/workspaces/${workspaceId}`)
     return res.data
 }
 
