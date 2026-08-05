@@ -2,15 +2,19 @@ import Input from "../components/Input.jsx"
 import { useState } from "react"
 import TextArea from "../components/TestArea.jsx"
 import Button from "./Button.jsx"
+import { updateWorkspace } from "../services/workspace.services.js"
+import { useNavigate, useParams } from "react-router-dom"
+import toast from "react-hot-toast"
 
-
-function EditModel({ setIsEditModelOpen }) {
-    const [name, setName] = useState("Over Team")
-    const [description, setDescription] = useState("sjdj nasjf jansjnj bajj")
+function EditModel({ setIsEditModelOpen, workspace, fetchWorkspaceDetails,setIsMenuOpen}) {
+    const [name, setName] = useState(workspace.name)
+    const [description, setDescription] = useState(workspace.description)
     const [errors, setErrors] = useState({})
     const [loading, setLoading] = useState(false)
+    const navigate = useNavigate()
+    const { workspaceId } = useParams()
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
         const newErrors = {}
@@ -34,9 +38,22 @@ function EditModel({ setIsEditModelOpen }) {
 
         setLoading(true)
         try {
-            console.log("pass")
+            const response = await updateWorkspace({ name, description }, workspaceId)
+            toast.success(response.message)
+            await fetchWorkspaceDetails()
+            setIsEditModelOpen(false)
+            setIsMenuOpen(false)
         } catch (error) {
-
+            if (error.response) {
+                toast.error(error.response.data.message)
+            }
+            else if (error.request) {
+                toast.error("Please check your internet connection")
+            }
+            else {
+                toast.error("Something went wrong. Please try again")
+            }
+            console.error(error)
         } finally {
             setLoading(false)
         }
@@ -85,7 +102,7 @@ function EditModel({ setIsEditModelOpen }) {
 
                     <div className="flex justify-center gap-4">
                         <Button text="Cancel" className="text-black border border-gray-600 bg-white cursor-pointer" onClick={() => setIsEditModelOpen(false)} />
-                        <Button text="Save Changes" className="cursor-pointer" />
+                        <Button text={loading?"Saving Changes...":"Save Changes"} className={loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"} disabled={loading}/>
                     </div>
                 </form>
             </div>

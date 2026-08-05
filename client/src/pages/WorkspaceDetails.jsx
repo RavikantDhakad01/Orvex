@@ -30,36 +30,37 @@ function WorkspaceDetails() {
   const { workspaceId } = useParams();
   const isOwner = user._id.toString() === workspaceData?.workspace?.owner?._id.toString()
   console.log(isOwner)
-  useEffect(() => {
 
-    const fetchWorkspaceDetails = async () => {
+  const fetchWorkspaceDetails = async () => {
 
-      try {
-        const response = await getWorkspaceById(workspaceId);
-        setWorkspaceData(response.data);
-        console.log(response.data)
-      } catch (error) {
-        if (error.response) {
-          toast.error(error.response.data.message || "Something went wrong. Please refresh");
-        } else if (error.request) {
-          toast.error("Please check your internet connection");
-        } else {
-          toast.error("Something went wrong. Please refresh");
-        }
-
-        console.error(error);
-      } finally {
-        setLoading(false);
+    try {
+      const response = await getWorkspaceById(workspaceId);
+      setWorkspaceData(response.data);
+      console.log(response.data)
+    } catch (error) {
+      if (error.response) {
+        toast.error(error.response.data.message || "Something went wrong. Please refresh");
+      } else if (error.request) {
+        toast.error("Please check your internet connection");
+      } else {
+        toast.error("Something went wrong. Please refresh");
       }
-    };
+
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
 
     fetchWorkspaceDetails();
 
   }, [workspaceId]);
 
-if (loading) {
+  if (loading) {
     return <Loader />;
-}
+  }
   return (
     <div className="relative">
 
@@ -67,10 +68,10 @@ if (loading) {
         <ArrowLeft size={26} className="cursor-pointer" onClick={() => { navigate("/workspace") }} />
         <h1 className="font-bold text-xl">{workspaceData?.workspace?.name}</h1>
         <div className="w-6">
-          {isOwner &&  <EllipsisVertical size={26} onClick={() => setIsMenuOpen(pre => !pre)} className="cursor-pointer" />}
+          {isOwner && <EllipsisVertical size={26} onClick={() => setIsMenuOpen(pre => !pre)} className="cursor-pointer" />}
         </div>
-        
-       
+
+
         {isMenuOpen && (
           <div className="absolute top-10 right-0 bg-white shadow-lg rounded-2xl flex flex-col p-4 gap-6">
             <div className="flex gap-2 items-center cursor-pointer" onClick={() => {
@@ -94,11 +95,12 @@ if (loading) {
       <div onClick={() => setIsMenuOpen(false)}>
         {activeTab === "Overview" && (<WorkspaceOverview workspaceData={workspaceData} />)}
         {activeTab === "Projects" && (<Projects isOwner={isOwner} />)}
-        {activeTab === "Members" && (<Members isOwner={isOwner} workspaceData={workspaceData}/>)}
+        {activeTab === "Members" && (<Members isOwner={isOwner} workspaceData={workspaceData} />)}
       </div>
 
 
-      {isEditModelOpen && <Model><EditModel setIsEditModelOpen={setIsEditModelOpen} /></Model>}
+      {isEditModelOpen && <Model><EditModel setIsEditModelOpen={setIsEditModelOpen} workspace={workspaceData.workspace} fetchWorkspaceDetails={fetchWorkspaceDetails} setIsMenuOpen={setIsMenuOpen}/></Model>}
+
       {isDeleteModelOpen && <Model><DeleteModel setIsDeleteModelOpen={setIsDeleteModelOpen} /></Model>}
     </div>
 

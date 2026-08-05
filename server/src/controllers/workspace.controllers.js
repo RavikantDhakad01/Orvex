@@ -143,7 +143,7 @@ const updateWorkspace = async (req, res, next) => {
 
 
         if (description !== undefined) {
-            if (typeof description !== "string" || description.trim() === "") {
+            if (typeof description !== "string") {
                 throw new ApiError(400, "Workspace description is invalid")
             }
 

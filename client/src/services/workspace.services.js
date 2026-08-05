@@ -15,8 +15,8 @@ const getWorkspaceById = async (workspaceId) => {
     return res.data
 }
 
-const updateWorkspace=async (data) => {
-    const res = await api.patch("/workspaces/:workspaceId", data)
+const updateWorkspace = async (data, workspaceId) => {
+    const res = await api.patch(`/workspaces/${workspaceId}`, data)
     return res.data
 }
 
@@ -26,9 +26,9 @@ const deleteWorkspace = async (workspaceId) => {
 }
 
 export {
-createWorkspace,
-getUserWorkspaces,
-getWorkspaceById,
-updateWorkspace,
-deleteWorkspace
+    createWorkspace,
+    getUserWorkspaces,
+    getWorkspaceById,
+    updateWorkspace,
+    deleteWorkspace
 }
