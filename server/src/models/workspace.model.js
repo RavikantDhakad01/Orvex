@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import {AVATAR_COLORS} from "../constants.js"
 
 const workspaceSchema = new Schema({
 
@@ -17,7 +18,11 @@ const workspaceSchema = new Schema({
         maxlength: 200,
         default: ""
     },
-
+    avatarColor: {
+        type: String,
+        enum: AVATAR_COLORS,
+        required: true
+    },
     owner: {
         type: Schema.Types.ObjectId,
         ref: "User",

@@ -5,6 +5,7 @@ import Workspace from "../models/workspace.model.js"
 import WorkspaceMember from "../models/workspaceMember.model.js"
 import { WORKSPACE_ROLE } from "../constants.js"
 import Invitation from "../models/invitation.model.js"
+import getRandomAvatarColor from "../utils/randomColor.js"
 
 const createWorkspace = async (req, res, next) => {
     const session = await mongoose.startSession();
@@ -18,13 +19,17 @@ const createWorkspace = async (req, res, next) => {
         if (name.trim().length < 3 || name.trim().length > 50) {
             throw new ApiError(400, "Workspace must be atleast 3 character or max 50 character long")
         }
+
         if (description !== undefined) {
-            if (typeof description !== "string" || description.trim() === "") {
-                throw new ApiError(400, "Workspace description is invalid")
+            if (typeof description !== "string") {
+                throw new ApiError(400, "Workspace description is invalid");
             }
 
             if (description.trim().length > 200) {
-                throw new ApiError(400, "Workspace description can only have max 200 character")
+                throw new ApiError(
+                    400,
+                    "Workspace description can only have a maximum of 200 characters"
+                );
             }
         }
         const existedWorkspace = await Workspace.findOne({
@@ -40,7 +45,8 @@ const createWorkspace = async (req, res, next) => {
 
         const [workspace] = await Workspace.create([{
             name: name.trim().toLowerCase(),
-            description: description?.trim(),
+            description: description?.trim() || "",
+            avatarColor: getRandomAvatarColor(),
             owner: req.user._id
         }], { session })
 
@@ -65,18 +71,17 @@ const createWorkspace = async (req, res, next) => {
 
 const getUserWorkspaces = async (req, res, next) => {
     try {
-        const members = await WorkspaceMember.find({ user: req.user._id }).populate({
+        const members = await WorkspaceMember.find({ user: req.user?._id }).populate({
             path: "workspace",
-            select: "name description owner"
+            select: "name description avatarColor owner"
         })
-        console.log(members)
         const result = []
         for (const member of members) {
             const memberCount = await WorkspaceMember.countDocuments({ workspace: member.workspace._id })
 
             // TODO:add projectCount too
             result.push({
-                workspace:member.workspace,
+                workspace: member.workspace,
                 memberCount
             })
         }
@@ -90,11 +95,14 @@ const getWorkspaceById = async (req, res, next) => {
     try {
         const { workspaceId } = req.params
 
-        const workspace = await Workspace.findById(workspaceId)
+        const workspace = await Workspace.findById(workspaceId).populate("owner","username avatarColor")
         if (!workspace) {
             throw new ApiError(404, "Workspace does not exist")
         }
-        return res.status(200).json(new ApiResponse(200, workspace, "Workspace details fetched successfully"))
+
+         const members = await WorkspaceMember.find({ workspace:workspace._id }).populate("user","username avatarColor")
+
+        return res.status(200).json(new ApiResponse(200, {workspace,members}, "Workspace details fetched successfully"))
     } catch (error) {
         next(error)
     }
