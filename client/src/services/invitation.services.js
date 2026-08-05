@@ -1,7 +1,7 @@
 import api from "../api/axios.js";
 
-const inviteMember = async (data) => {
-    const res = await api.post("/invitations/workspace/:workspaceId", data)
+const inviteMember = async (data,workspaceId) => {
+    const res = await api.post(`/invitations/workspace/${workspaceId}`, data)
     return res.data
 }
 
