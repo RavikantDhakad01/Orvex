@@ -3,13 +3,9 @@ import Button from "./Button.jsx"
 import { useState } from "react"
 import InviteModel from "../components/InviteModel.jsx"
 import Model from "./Model.jsx"
-import EmptyStats from "./EmptyStats.jsx"
-import { UsersRound } from "lucide-react"
 
 function Members({ isOwner, workspaceData }) {
     const [isInviteModelOpen, setIsInviteModelOpen] = useState(false)
-    // console.log(isOwner)
-    console.log(workspaceData)
     return (
         <>
             <div className=" flex flex-col gap-10 mt-8">

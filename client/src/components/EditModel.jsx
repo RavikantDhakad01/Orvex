@@ -102,7 +102,7 @@ function EditModel({ setIsEditModelOpen, workspace, fetchWorkspaceDetails,setIsM
 
                     <div className="flex justify-center gap-4">
                         <Button text="Cancel" className="text-black border border-gray-600 bg-white cursor-pointer" onClick={() => setIsEditModelOpen(false)} />
-                        <Button text={loading?"Saving Changes...":"Save Changes"} className={loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"} disabled={loading}/>
+                        <Button text={loading?"Saving...":"Save"} className={loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"} disabled={loading}/>
                     </div>
                 </form>
             </div>

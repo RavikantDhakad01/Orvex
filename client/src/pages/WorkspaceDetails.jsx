@@ -29,14 +29,12 @@ function WorkspaceDetails() {
   const navigate = useNavigate()
   const { workspaceId } = useParams();
   const isOwner = user._id.toString() === workspaceData?.workspace?.owner?._id.toString()
-  console.log(isOwner)
 
   const fetchWorkspaceDetails = async () => {
 
     try {
       const response = await getWorkspaceById(workspaceId);
       setWorkspaceData(response.data);
-      console.log(response.data)
     } catch (error) {
       if (error.response) {
         toast.error(error.response.data.message || "Something went wrong. Please refresh");

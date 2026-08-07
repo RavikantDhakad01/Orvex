@@ -46,7 +46,7 @@ function DeleteModel({ setIsDeleteModelOpen }) {
                 </div>
 
                 <div className="flex flex-col gap-4 w-full">
-                    <Button text={loading ? "Deleting Workspace..." : "Delete Workspace"} className={`bg-red-600 py-3 ${loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`} type="button" onClick={handleDelete} disabled={loading} />
+                    <Button text={loading ? "Deleting..." : "Delete"} className={`bg-red-600 py-3 ${loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`} type="button" onClick={handleDelete} disabled={loading} />
                     <Button text="Cancel" className="text-black border border-gray-600 bg-white py-3 cursor-pointer" onClick={() => setIsDeleteModelOpen(false)} disabled={loading}/>
                 </div>
             </div>

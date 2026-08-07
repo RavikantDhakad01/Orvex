@@ -77,7 +77,7 @@ function InviteModel({ setIsInviteModelOpen }) {
 
                     <div className="flex justify-center gap-4">
                         <Button text="Cancel" className="text-black border border-gray-600 bg-white cursor-pointer" onClick={() => setIsInviteModelOpen(false)} />
-                        <Button text={loading ? "Sending Invitation..." : "Send Invitation"} className={loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"} disabled={loading} />
+                        <Button text={loading ? "Sending..." : "Send"} className={loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"} disabled={loading} />
                     </div>
                 </form>
             </div>
