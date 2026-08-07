@@ -10,12 +10,14 @@ function WorkspaceOverview({ workspaceData }) {
                 <span className="text-xl font-bold text-gray-700">Description</span>
                 <p className="text-lg">{workspaceData.workspace.description}</p>
             </div>}
-            <div className="flex justify-center gap-4 mt-4">
+
+            <div className="flex flex-col gap-8 md:flex-row md:justify-around">
+                 <div className="flex justify-center gap-4 mt-8">
                 <div className="flex flex-col shadow-lg rounded-lg px-10 py-4 items-center gap-2"><Folder /> <span>Projects</span> <span>{"0"}</span>
                 </div>
                 <div className="flex flex-col shadow-lg rounded-lg  w-36 py-4 items-center gap-2"><Users /> <span>Members</span> <span>{workspaceData.members.length}</span></div>
             </div>
-            <div>
+            <div className="shadow-lg p-8 rounded-lg">
                 <div className="flex flex-col gap-2">
                     <span className="font-bold text-lg">Created by</span>
                     <div className="flex gap-10">
@@ -31,6 +33,8 @@ function WorkspaceOverview({ workspaceData }) {
                     <span>{formatDate(workspaceData.workspace.createdAt)}</span>
                 </div>
             </div>
+            </div>
+           
         </div>
 
 
