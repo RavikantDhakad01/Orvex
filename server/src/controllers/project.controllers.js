@@ -70,9 +70,8 @@ const getUserProjects = async (req, res, next) => {
 
 const getProjectById = async (req, res, next) => {
     try {
-        const { projectId } = req.params
 
-        const project = await Project.findById(projectId)
+        const project = req.project
         if (!project) {
             throw new ApiError(404, "Project does not exist")
         }
@@ -88,14 +87,11 @@ const getProjectById = async (req, res, next) => {
 
 const updateProject = async (req, res, next) => {
     try {
-        const { projectId } = req.params
-
-        const project = await Project.findById(projectId)
+        const project = req.project
         if (!project) {
             throw new ApiError(404, "Project does not exist")
         }
         const { name, description } = req.body
-
 
         if (name === undefined && description === undefined) {
             throw new ApiError(400, "At least one field is required to update project")
@@ -115,7 +111,7 @@ const updateProject = async (req, res, next) => {
             const existedProject = await Project.findOne({
                 name: name.trim().toLowerCase(),
                 workspace: project.workspace,
-                _id: { $ne: projectId }
+                _id: { $ne: project._id }
             })
             if (existedProject) {
                 throw new ApiError(409, "Project with the same name already exists")
@@ -137,7 +133,7 @@ const updateProject = async (req, res, next) => {
             updateFields.description = description.trim()
         }
 
-        const updatedProject = await Project.findByIdAndUpdate(projectId, updateFields, { new: true }
+        const updatedProject = await Project.findByIdAndUpdate(project._id, updateFields, { new: true }
 
         )
         if (!updatedProject) {
@@ -153,9 +149,7 @@ const updateProject = async (req, res, next) => {
 
 const deleteProject = async (req, res, next) => {
     try {
-        const { projectId } = req.params
-
-        const deletedProject = await Project.findByIdAndDelete(projectId)
+        const deletedProject = await Project.findByIdAndDelete(req.project._id)
         if (!deletedProject) {
             throw new ApiError(404, "Project does not exist");
         }
@@ -166,7 +160,7 @@ const deleteProject = async (req, res, next) => {
 
     } catch (error) {
         next(error)
-    } 
+    }
 }
 
 export {
@@ -174,5 +168,5 @@ export {
     getUserProjects,
     getProjectById,
     updateProject,
-    deleteWorkspace
+    deleteProject
 }
