@@ -57,12 +57,12 @@ const createProject = async (req, res, next) => {
 const getUserProjects = async (req, res, next) => {
     try {
         const members = await WorkspaceMember.find({ user: req.user?._id }).select("workspace")
-        const userWorkspaces =members.map((member)=>member.workspace)
-        const projects = await Project.find({workspace:{$in:userWorkspaces}})
+        const userWorkspaces = members.map((member) => member.workspace)
+        const projects = await Project.find({ workspace: { $in: userWorkspaces } })
 
         //todo :add task count for each project later
 
-        return res.status(200).json(new ApiResponse(200,projects, "User workspaces projects fechted successfully"))
+        return res.status(200).json(new ApiResponse(200, projects, "User workspaces projects fechted successfully"))
     } catch (error) {
         next(error)
     }
@@ -86,11 +86,75 @@ const getProjectById = async (req, res, next) => {
     }
 }
 
+const updateProject = async (req, res, next) => {
+    try {
+        const { projectId } = req.params
+
+        const project = await Project.findById(projectId)
+        if (!project) {
+            throw new ApiError(404, "Project does not exist")
+        }
+        const { name, description } = req.body
+
+
+        if (name === undefined && description === undefined) {
+            throw new ApiError(400, "At least one field is required to update project")
+        }
+
+        const updateFields = {}
+        if (name !== undefined) {
+
+            if (typeof name !== "string" || name.trim() === "") {
+                throw new ApiError(400, "Project name is invalid or missing")
+            }
+
+            if (name.trim().length < 3 || name.trim().length > 50) {
+                throw new ApiError(400, "Project name must be at least 3 characters and at most 50 characters long")
+            }
+
+            const existedProject = await Project.findOne({
+                name: name.trim().toLowerCase(),
+                workspace: project.workspace,
+                _id: { $ne: projectId }
+            })
+            if (existedProject) {
+                throw new ApiError(409, "Project with the same name already exists")
+            }
+
+            updateFields.name = name.trim().toLowerCase()
+        }
+
+
+        if (description !== undefined) {
+            if (typeof description !== "string") {
+                throw new ApiError(400, "Project description is invalid")
+            }
+
+            if (description.trim().length > 200) {
+                throw new ApiError(400, "Project description can only have max 200 character")
+            }
+
+            updateFields.description = description.trim()
+        }
+
+        const updatedProject = await Project.findByIdAndUpdate(projectId, updateFields, { new: true }
+
+        )
+        if (!updatedProject) {
+            throw new ApiError(404, "Project does not exist")
+        }
+
+        return res.status(200).json(new ApiResponse(200, updatedProject, "Project updated successfully"))
+
+    } catch (error) {
+        next(error)
+    }
+}
 
 export {
     createProject,
     getUserProjects,
     getProjectById,
-    updateWorkspace,
+    updateProject,
     deleteWorkspace
 }
