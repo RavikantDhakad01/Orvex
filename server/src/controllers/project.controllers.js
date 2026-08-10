@@ -2,7 +2,7 @@ import ApiResponse from "../utils/ApiResponse.js"
 import ApiError from "../utils/ApiError.js"
 import getRandomAvatarColor from "../utils/randomColor.js"
 import Project from "../models/project.model.js"
-
+import WorkspaceMember from "../models/workspaceMember.model.js"
 
 const createProject = async (req, res, next) => {
 
@@ -54,6 +54,19 @@ const createProject = async (req, res, next) => {
     }
 }
 
+const getUserProjects = async (req, res, next) => {
+    try {
+        const members = await WorkspaceMember.find({ user: req.user?._id }).select("workspace")
+        const userWorkspaces =members.map((member)=>member.workspace)
+        const projects = await Project.find({workspace:{$in:userWorkspaces}})
+
+        //todo :add task count for each project later
+
+        return res.status(200).json(new ApiResponse(200,projects, "User workspaces projects fechted successfully"))
+    } catch (error) {
+        next(error)
+    }
+}
 
 const getProjectById = async (req, res, next) => {
     try {
@@ -72,10 +85,12 @@ const getProjectById = async (req, res, next) => {
         next(error)
     }
 }
+
+
 export {
     createProject,
-    getWorkspaceProjects,
-    getWorkspaceById,
+    getUserProjects,
+    getProjectById,
     updateWorkspace,
     deleteWorkspace
 }
