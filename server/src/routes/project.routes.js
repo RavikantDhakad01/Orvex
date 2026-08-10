@@ -14,6 +14,6 @@ const router = Router()
 router.route("/workspaces/:workspaceId/projects").post(verifyJwt,authorizeWorkspace([WORKSPACE_ROLE.OWNER]), createProject)
 router.route("/").get(verifyJwt, getUserProjects)
 
-router.route("/:projectId").get(verifyJwt,  authorizeProject([WORKSPACE_ROLE.MEMBER, WORKSPACE_ROLE.OWNER]), getProjectById).patch(verifyJwt, authorizeProject([WORKSPACE_ROLE.OWNER]), updateProject).delete(verifyJwt, authorizeProject([WORKSPACE_ROLE.OWNER]), deleteProjecte)
+router.route("/:projectId").get(verifyJwt,  authorizeProject([WORKSPACE_ROLE.MEMBER, WORKSPACE_ROLE.OWNER]), getProjectById).patch(verifyJwt, authorizeProject([WORKSPACE_ROLE.OWNER]), updateProject).delete(verifyJwt, authorizeProject([WORKSPACE_ROLE.OWNER]), deleteProject)
 
 export default router
