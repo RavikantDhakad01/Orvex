@@ -6,6 +6,7 @@ import WorkspaceMember from "../models/workspaceMember.model.js"
 import { WORKSPACE_ROLE } from "../constants.js"
 import Invitation from "../models/invitation.model.js"
 import getRandomAvatarColor from "../utils/randomColor.js"
+import Project from "../models/project.model.js"
 
 const createWorkspace = async (req, res, next) => {
     const session = await mongoose.startSession();
@@ -78,11 +79,11 @@ const getUserWorkspaces = async (req, res, next) => {
         const result = []
         for (const member of members) {
             const memberCount = await WorkspaceMember.countDocuments({ workspace: member.workspace._id })
-
-            // TODO:add projectCount too
+            const projectCount = await Project.countDocuments({ workspace: member.workspace._id })
             result.push({
                 workspace: member.workspace,
-                memberCount
+                memberCount,
+                projectCount
             })
         }
         return res.status(200).json(new ApiResponse(200, result, "User workspaces fechted successfully"))
@@ -95,14 +96,15 @@ const getWorkspaceById = async (req, res, next) => {
     try {
         const { workspaceId } = req.params
 
-        const workspace = await Workspace.findById(workspaceId).populate("owner","username avatarColor")
+        const workspace = await Workspace.findById(workspaceId).populate("owner", "username avatarColor")
         if (!workspace) {
             throw new ApiError(404, "Workspace does not exist")
         }
 
-         const members = await WorkspaceMember.find({ workspace:workspace._id }).populate("user","username avatarColor")
+        const members = await WorkspaceMember.find({ workspace: workspace._id }).populate("user", "username avatarColor")
+        const projects = await Project.find({workspace: workspace._id })
 
-        return res.status(200).json(new ApiResponse(200, {workspace,members}, "Workspace details fetched successfully"))
+        return res.status(200).json(new ApiResponse(200, { workspace, members,projects}, "Workspace details fetched successfully"))
     } catch (error) {
         next(error)
     }
