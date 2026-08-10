@@ -151,6 +151,24 @@ const updateProject = async (req, res, next) => {
     }
 }
 
+const deleteProject = async (req, res, next) => {
+    try {
+        const { projectId } = req.params
+
+        const deletedProject = await Project.findByIdAndDelete(projectId)
+        if (!deletedProject) {
+            throw new ApiError(404, "Project does not exist");
+        }
+
+        //todo: add transition and delete projects task latter
+
+        return res.status(200).json(new ApiResponse(200, deletedProject, "Project deleted successfully"))
+
+    } catch (error) {
+        next(error)
+    } 
+}
+
 export {
     createProject,
     getUserProjects,
