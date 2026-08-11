@@ -92,7 +92,7 @@ function WorkspaceDetails() {
 
       <div onClick={() => setIsMenuOpen(false)}>
         {activeTab === "Overview" && (<WorkspaceOverview workspaceData={workspaceData} />)}
-        {activeTab === "Projects" && (<Projects isOwner={isOwner} />)}
+        {activeTab === "Projects" && (<Projects isOwner={isOwner} projects={workspaceData.projects}/>)}
         {activeTab === "Members" && (<Members isOwner={isOwner} workspaceData={workspaceData} />)}
       </div>
 

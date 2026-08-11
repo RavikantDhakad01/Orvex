@@ -13,7 +13,7 @@ function WorkspaceOverview({ workspaceData }) {
 
             <div className="flex flex-col gap-8 md:flex-row md:justify-around">
                  <div className="flex justify-center gap-4 mt-8">
-                <div className="flex flex-col shadow-lg rounded-lg px-10 py-4 items-center gap-2"><Folder /> <span>Projects</span> <span>{"0"}</span>
+                <div className="flex flex-col shadow-lg rounded-lg px-10 py-4 items-center gap-2"><Folder /> <span>Projects</span> <span>{workspaceData.projects.length}</span>
                 </div>
                 <div className="flex flex-col shadow-lg rounded-lg  w-36 py-4 items-center gap-2"><Users /> <span>Members</span> <span>{workspaceData.members.length}</span></div>
             </div>

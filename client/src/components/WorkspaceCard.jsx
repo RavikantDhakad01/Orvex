@@ -19,7 +19,7 @@ function WorkspaceCard({ workspaceDetails,onClick }) {
             </div>
 
             <div className="flex gap-8">
-                <div className="flex gap-2 items-center"><Folder strokeWidth={1.5} size={18} /> <p>{`${0} projects`}</p></div>
+                <div className="flex gap-2 items-center"><Folder strokeWidth={1.5} size={18} /> <p>{`${workspaceDetails.projectCount} projects`}</p></div>
                 <div className="flex gap-2 items-center"><Users strokeWidth={1.5} size={18} /> <p>{`${workspaceDetails.
                     memberCount} members`}</p></div>
             </div>
