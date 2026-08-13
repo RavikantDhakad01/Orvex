@@ -34,7 +34,10 @@ const createWorkspace = async (req, res, next) => {
             }
         }
         const existedWorkspace = await Workspace.findOne({
-            name: name.trim().toLowerCase(),
+            name: {
+                $regex: `^${name.trim()}$`,
+                $options: "i"
+            },
             owner: req.user._id
         })
 
@@ -45,7 +48,7 @@ const createWorkspace = async (req, res, next) => {
         session.startTransaction()
 
         const [workspace] = await Workspace.create([{
-            name: name.trim().toLowerCase(),
+            name: name.trim(),
             description: description?.trim() || "",
             avatarColor: getRandomAvatarColor(),
             owner: req.user._id
@@ -102,9 +105,9 @@ const getWorkspaceById = async (req, res, next) => {
         }
 
         const members = await WorkspaceMember.find({ workspace: workspace._id }).populate("user", "username avatarColor")
-        const projects = await Project.find({workspace: workspace._id })
+        const projects = await Project.find({ workspace: workspace._id })
 
-        return res.status(200).json(new ApiResponse(200, { workspace, members,projects}, "Workspace details fetched successfully"))
+        return res.status(200).json(new ApiResponse(200, { workspace, members, projects }, "Workspace details fetched successfully"))
     } catch (error) {
         next(error)
     }
@@ -132,7 +135,10 @@ const updateWorkspace = async (req, res, next) => {
             }
 
             const existedWorkspace = await Workspace.findOne({
-                name: name.trim().toLowerCase(),
+                name: {
+                    $regex: `^${name.trim()}$`,
+                    $options: "i"
+                },
                 owner: req.user._id,
                 _id: { $ne: workspaceId }
             })
@@ -140,7 +146,7 @@ const updateWorkspace = async (req, res, next) => {
                 throw new ApiError(409, "Workspace with the same name already exists")
             }
 
-            updateFields.name = name.trim().toLowerCase()
+            updateFields.name = name.trim()
         }
 
 
@@ -184,7 +190,7 @@ const deleteWorkspace = async (req, res, next) => {
 
         await WorkspaceMember.deleteMany({ workspace: workspaceId }, { session })
         await Invitation.deleteMany({ workspace: workspaceId }, { session })
-
+        await Project.deleteMany({ workspace: workspaceId }, { session })
         await session.commitTransaction()
         return res.status(200).json(new ApiResponse(200, deletedWorkspace, "Workspace deleted successfully"))
 

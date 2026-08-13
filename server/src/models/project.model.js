@@ -8,8 +8,7 @@ const projectSchema = new Schema({
         trim: true,
         minlength: 3,
         maxlength: 50,
-        required: true,
-        lowercase: true
+        required: true
     },
 
     description: {

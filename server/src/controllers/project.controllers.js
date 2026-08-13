@@ -31,7 +31,10 @@ const createProject = async (req, res, next) => {
             }
         }
         const existedProject = await Project.findOne({
-            name: name.trim().toLowerCase(),
+            name: {
+                $regex: `^${name.trim()}$`,
+                $options: "i"
+            },
             workspace: workspaceId
         })
 
@@ -40,7 +43,7 @@ const createProject = async (req, res, next) => {
         }
 
         const project = await Project.create({
-            name: name.trim().toLowerCase(),
+            name: name.trim(),
             description: description?.trim() || "",
             avatarColor: getRandomAvatarColor(),
             workspace: workspaceId,
@@ -109,7 +112,10 @@ const updateProject = async (req, res, next) => {
             }
 
             const existedProject = await Project.findOne({
-                name: name.trim().toLowerCase(),
+                name: {
+                    $regex: `^${name.trim()}$`,
+                    $options: "i"
+                },
                 workspace: project.workspace,
                 _id: { $ne: project._id }
             })
@@ -117,7 +123,7 @@ const updateProject = async (req, res, next) => {
                 throw new ApiError(409, "Project with the same name already exists")
             }
 
-            updateFields.name = name.trim().toLowerCase()
+            updateFields.name = name.trim()
         }
 
 
