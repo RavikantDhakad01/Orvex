@@ -15,7 +15,7 @@ function Members({ isOwner, workspaceData }) {
                     }
 
                 </div>
-                {isOwner && <Button text="+ Invite Member" onClick={() => setIsInviteModelOpen(true)} />}
+                {isOwner && <Button text="+ Invite Member" onClick={() => setIsInviteModelOpen(true)} className="cursor-pointer"/>}
 
             </div>
             {isInviteModelOpen && <Model><InviteModel setIsInviteModelOpen={setIsInviteModelOpen} /></Model>}
