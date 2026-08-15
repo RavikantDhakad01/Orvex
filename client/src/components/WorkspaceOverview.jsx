@@ -17,19 +17,19 @@ function WorkspaceOverview({ workspaceData }) {
                 </div>
                 <div className="flex flex-col shadow-md rounded-lg  w-36 py-4 items-center gap-2"><Users /> <span>Members</span> <span>{workspaceData.members.length}</span></div>
             </div>
-            <div className="shadow-sm p-8 rounded-md">
-                <div className="flex flex-col gap-2">
-                    <span className="font-bold text-lg">Created by</span>
+            <div className="shadow-sm p-8 rounded-md text-xl ">
+                <div className="flex flex-col gap-4 ">
+                    <span className="font-bold ">Created by</span>
                     <div className="flex gap-10">
                         <div className="flex items-center gap-4">
                             <Avatar className="rounded-full" name={workspaceData.workspace.owner.username} color={workspaceData.workspace.owner.avatarColor} />
-                            <span className="font-bold text-lg">{workspaceData.workspace.owner.username}</span>
+                            <span className="font-semibold ">{workspaceData.workspace.owner.username}</span>
                         </div>
                         <OwnerBadge />
                     </div>
                 </div>
-                <div className="flex flex-col mt-4 font-bold text-lg gap-1">
-                    <span >Created on</span>
+                <div className="flex flex-col mt-4   gap-2">
+                    <span className="font-bold">Created on</span>
                     <span>{formatDate(workspaceData.workspace.createdAt)}</span>
                 </div>
             </div>
