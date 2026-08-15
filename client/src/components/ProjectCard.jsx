@@ -9,10 +9,9 @@ function ProjectCard({project}) {
         <Avatar className="rounded-full" name={project.name} color={project.avatarColor}/>
         <div className="flex flex-col">
           <h1 className="font-bold text-lg">{project.name}</h1>
-          <p className="text-gray-600">{getTimeAgo(project.updatedAt)}</p>
+          <p className="text-gray-600">Updated {getTimeAgo(project.updatedAt)}</p>
         </div>
       </div>
-      <EllipsisVertical className="cursor-pointer"/>
     </div>
   )
 }
