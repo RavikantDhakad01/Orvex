@@ -9,7 +9,7 @@ import Projects from "../components/projects.jsx"
 import Members from "../components/Members.jsx"
 import { act } from "react"
 import Model from "../components/Model.jsx"
-import EditModel from "../components/EditModel.jsx"
+import EditWorkspaceModel from "../components/EditWorkspaceModel.jsx"
 import DeleteModel from "../components/DeleteModel.jsx"
 import InviteModel from "../components/InviteModel.jsx"
 import { useNavigate, useParams } from "react-router-dom";
@@ -97,7 +97,7 @@ function WorkspaceDetails() {
       </div>
 
 
-      {isEditModelOpen && <Model><EditModel setIsEditModelOpen={setIsEditModelOpen} workspace={workspaceData.workspace} fetchWorkspaceDetails={fetchWorkspaceDetails} setIsMenuOpen={setIsMenuOpen}/></Model>}
+      {isEditModelOpen && <Model><EditWorkspaceModel setIsEditModelOpen={setIsEditModelOpen} workspace={workspaceData.workspace} fetchWorkspaceDetails={fetchWorkspaceDetails} setIsMenuOpen={setIsMenuOpen}/></Model>}
 
       {isDeleteModelOpen && <Model><DeleteModel setIsDeleteModelOpen={setIsDeleteModelOpen} /></Model>}
     </div>
