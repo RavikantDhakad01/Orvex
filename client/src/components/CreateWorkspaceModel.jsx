@@ -28,7 +28,7 @@ function CreateModel({ setModelOpen }) {
         }
 
         if (description && description.trim().length > 200)
-            newErrors.description = " descriptioncan have max 200 characters"
+            newErrors.description = "Workspace description can  have max 200 characters"
 
         setErrors(newErrors)
         if (Object.keys(newErrors).length > 0) {
