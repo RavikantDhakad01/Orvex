@@ -2,7 +2,7 @@ import Button from '../components/Button.jsx';
 import WorkspaceCard from '../components/WorkspaceCard.jsx';
 import { useState, useEffect } from 'react';
 import Model from '../components/Model.jsx';
-import CreateModel from '../components/CreateModel.jsx';
+import CreateWorkspaceModel from '../components/CreateWorkspaceModel.jsx';
 import EmptyStats from '../components/EmptyStats.jsx';
 import { BriefcaseBusiness } from 'lucide-react';
 import {
@@ -97,7 +97,7 @@ function Workspace() {
       )}
       {isModelOpen && (
         <Model>
-          <CreateModel setModelOpen={setModelOpen} />
+          <CreateWorkspaceModel setModelOpen={setModelOpen} />
         </Model>
       )}
     </>
