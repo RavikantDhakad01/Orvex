@@ -55,9 +55,6 @@ function Project() {
               <ProjectCard
                 project={project}
                 key={project._id}
-                onClick={() => {
-                  navigate(``);
-                }}
               />
             ))}
           </div>
