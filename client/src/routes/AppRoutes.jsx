@@ -10,6 +10,7 @@ import ProtectedRoutes from "./ProtectedRoutes.jsx"
 import PublicRoutes from "./PublicRoutes.jsx"
 import  Workspace from "../pages/workspace.jsx"
 import WorkspaceDetails from "../pages/WorkspaceDetails.jsx"
+import ProjectDetails from "../pages/ProjectDetails.jsx"
 import Invitation from "../pages/Invitation.jsx"
 import Project from "../pages/Project.jsx"
 import Task from "../pages/Task.jsx"
@@ -34,6 +35,7 @@ function AppRoutes() {
                          <Route path="/workspace/:workspaceId" element={<WorkspaceDetails />} />
                           <Route path="/invitation" element={<Invitation />} />
                           <Route path="/project" element={<Project />} />
+                          <Route path="/project/:projectId" element={<ProjectDetails />} />
                            <Route path="/task" element={<Task />} />
                          
                     </Route>
