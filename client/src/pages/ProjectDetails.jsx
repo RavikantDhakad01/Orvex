@@ -20,6 +20,7 @@ import toast from 'react-hot-toast';
 import useAuth from '../hooks/useAuth.jsx';
 import Tasks from '../components/Tasks.jsx';
 import {formatDate} from "../utils/formatDate.js"
+import {deleteProject} from "../services/project.services.js"
 
 function ProjectDetails() {
   const [activeTab, setActiveTab] = useState('Overview');
@@ -176,7 +177,7 @@ function ProjectDetails() {
 
       {isDeleteModelOpen && (
         <Model>
-          <DeleteModel setIsDeleteModelOpen={setIsDeleteModelOpen} />
+          <DeleteModel setIsDeleteModelOpen={setIsDeleteModelOpen} title="Delete Project ?" id={projectData.project._id} onSuccess={()=>navigate("/project")} deleteService={deleteProject}/>
         </Model>
       )}
     </div>

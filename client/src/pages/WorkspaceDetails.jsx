@@ -17,6 +17,7 @@ import { getWorkspaceById } from "../services/workspace.services.js"
 import useAuth from "../hooks/useAuth.jsx"
 import Loader from "../components/Loader.jsx"
 import toast from "react-hot-toast"
+import {deleteWorkspace} from "../services/workspace.services.js"
 
 function WorkspaceDetails() {
   const [activeTab, setActiveTab] = useState("Overview")
@@ -99,7 +100,7 @@ function WorkspaceDetails() {
 
       {isEditModelOpen && <Model><EditWorkspaceModel setIsEditModelOpen={setIsEditModelOpen} workspace={workspaceData.workspace} fetchWorkspaceDetails={fetchWorkspaceDetails} setIsMenuOpen={setIsMenuOpen}/></Model>}
 
-      {isDeleteModelOpen && <Model><DeleteModel setIsDeleteModelOpen={setIsDeleteModelOpen} /></Model>}
+      {isDeleteModelOpen && <Model><DeleteModel setIsDeleteModelOpen={setIsDeleteModelOpen} title="Delete Workspace ?" id={workspaceData.workspace._id} onSuccess={()=>navigate("/workspace")} deleteService={deleteWorkspace}/></Model>}
     </div>
 
 
