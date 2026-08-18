@@ -15,7 +15,7 @@ function Projects({ className, isOwner, projects }) {
           <div className=" flex flex-col gap-10 mt-8">
             <div className=" flex flex-col gap-4">
               {projects.map((project) => (
-                <ProjectCard project={project} key={project._id} />
+                <ProjectCard project={project} key={project._id} showWorkspace={false} showTask={false}/>
               ))}
             </div>
           {isOwner &&  (<Button

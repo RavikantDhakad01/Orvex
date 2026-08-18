@@ -55,6 +55,9 @@ function Project() {
               <ProjectCard
                 project={project}
                 key={project._id}
+                showTask={true}
+                showWorkspace={true}
+                taskCount={0} workspaceName={project.workspace.name}
               />
             ))}
           </div>
