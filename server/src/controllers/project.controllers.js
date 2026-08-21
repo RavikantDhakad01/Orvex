@@ -59,7 +59,7 @@ const createProject = async (req, res, next) => {
 
 const getUserProjects = async (req, res, next) => {
     try {
-        const members = await WorkspaceMember.find({ user: req.user?._id }).select("workspace")
+        const members = await WorkspaceMember.find({ user: req.user._id }).select("workspace")
         const userWorkspaces = members.map((member) => member.workspace)
         const projects = await Project.find({ workspace: { $in: userWorkspaces } }).populate("workspace","name")
 
