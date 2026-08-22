@@ -191,6 +191,8 @@ const deleteWorkspace = async (req, res, next) => {
         await WorkspaceMember.deleteMany({ workspace: workspaceId }, { session })
         await Invitation.deleteMany({ workspace: workspaceId }, { session })
         await Project.deleteMany({ workspace: workspaceId }, { session })
+        await Task.deleteMany({ workspace: workspaceId }, { session })
+        
         await session.commitTransaction()
         return res.status(200).json(new ApiResponse(200, deletedWorkspace, "Workspace deleted successfully"))
 
