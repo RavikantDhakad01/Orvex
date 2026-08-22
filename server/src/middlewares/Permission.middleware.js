@@ -47,7 +47,7 @@ const authorizeProject = (roles = []) => {
             if (!project) {
                 throw new ApiError(404, "Project does not exist")
             }
-            const workspaceId = project.workspace
+            const workspaceId = project.workspace._id
             const workspaceMember = await WorkspaceMember.findOne({
                 workspace: workspaceId,
                 user: req.user._id
