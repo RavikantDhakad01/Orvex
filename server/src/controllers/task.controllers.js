@@ -74,8 +74,8 @@ const createTask = async (req, res, next) => {
         const task = await Task.create({
             title: title.trim(),
             description: description?.trim() || "",
-            status: status || TASK_STATUS.todo,
-            priority: priority || TASK_PRIORITY.medium,
+            status: status || TASK_STATUS.TODO,
+            priority: priority || TASK_PRIORITY.MEDIUM,
             assignedTo: assignedTo || null,
             dueDate: parsedDueDate,
             workspace: req.project.workspace._id,
@@ -89,18 +89,6 @@ const createTask = async (req, res, next) => {
     }
 }
 
-const getProjectTasks = async (req, res, next) => {
-    try {
-        const projectTasks = await Task.find({
-            project: req.project._id
-        })
-
-        return res.status(200).json(new ApiResponse(200, projectTasks, "Project tasks fetched successfully"))
-
-    } catch (error) {
-        next(error)
-    }
-}
 const getUserTasks = async (req, res, next) => {
     try {
         const tasks = await Task.find({
@@ -128,6 +116,19 @@ const updateTask = async (req, res, next) => {
     try {
         const { title, description, status, priority, assignedTo, dueDate } = req.body
 
+        const isOwner = req.workspaceRole === "owner"
+        const isAssignee = req.task.assignedTo?.toString() === req.user._id.toString()
+
+        if (!isOwner) {
+            if (!isAssignee) {
+                throw new ApiError(403, "You don't have permission to update this task")
+            }
+
+            const fields = Object.keys(req.body)
+            if (fields.length !== 1 || fields[0] !== "status") {
+                throw new ApiError(403, "You can only update the status of an assigned task")
+            }
+        }
         if (title === undefined && description === undefined && status === undefined && priority === undefined && assignedTo === undefined && dueDate === undefined) {
             throw new ApiError(400, "At least one field is required to update task")
         }
@@ -182,7 +183,7 @@ const updateTask = async (req, res, next) => {
                     throw new ApiError(400, "Assigned user id is invalid")
                 }
                 const workspaceMember = await WorkspaceMember.findOne({
-                    workspace: req.project.workspace._id,
+                    workspace: req.task.workspace,
                     user: assignedTo
                 })
 
@@ -235,7 +236,6 @@ const deleteTask = async (req, res, next) => {
 
 export {
     createTask,
-    getProjectTasks,
     getUserTasks,
     getTaskById,
     updateTask,

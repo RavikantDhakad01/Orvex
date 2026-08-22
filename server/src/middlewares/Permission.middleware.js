@@ -102,6 +102,7 @@ const authorizeTask = (roles = []) => {
             }
 
             req.task = task
+            req.workspaceRole = userRole
             next()
 
         } catch (error) {
