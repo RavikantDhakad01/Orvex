@@ -11,23 +11,27 @@ app.use(express.static("public"))
 app.use(cookieParser())
 
 app.use(cors({
-    origin:process.env.CORS_ORIGIN?.split(",")||["http://localhost:5173"],
+    origin: process.env.CORS_ORIGIN?.split(",") || ["http://localhost:5173"],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"]
 }))
 
-import healthCheckRouter  from "./routes/healthcheck.routes.js"
+import healthCheckRouter from "./routes/healthcheck.routes.js"
 import authRouter from "./routes/auth.routes.js"
 import workspaceRouter from "./routes/workspace.routes.js"
-import invitationRouter  from "./routes/invitation.routes.js"
+import invitationRouter from "./routes/invitation.routes.js"
 import projectRouter from "./routes/project.routes.js"
+import taskRouter from "./routes/task.routes.js"
 
-app.use("/api/v1/healthcheck",healthCheckRouter)
-app.use("/api/v1/auth",authRouter)
-app.use("/api/v1/workspaces",workspaceRouter)
-app.use("/api/v1/invitations",invitationRouter)
-app.use("/api/v1/projects",projectRouter)
+app.use("/api/v1/healthcheck", healthCheckRouter)
+app.use("/api/v1/auth", authRouter)
+app.use("/api/v1/workspaces", workspaceRouter)
+app.use("/api/v1/invitations", invitationRouter)
+app.use("/api/v1/projects", projectRouter)
+app.use("/api/v1/tasks", taskRouter)
+
+
 app.use(errorHandler)
 
 export default app
