@@ -21,12 +21,12 @@ const taskSchema = new Schema({
     },
     status: {
         type: String,
-        default: TASK_STATUS.todo,
+        default: TASK_STATUS.TODO,
         enum: Object.values(TASK_STATUS)
     },
     priority: {
         type: String,
-        default: TASK_PRIORITY.medium,
+        default: TASK_PRIORITY.MEDIUM,
         enum: Object.values(TASK_PRIORITY)
     },
     project: {
