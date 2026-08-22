@@ -3,6 +3,7 @@ import ApiError from "../utils/ApiError.js"
 import getRandomAvatarColor from "../utils/randomColor.js"
 import Project from "../models/project.model.js"
 import WorkspaceMember from "../models/workspaceMember.model.js"
+import Task from "../models/task.model.js"
 
 const createProject = async (req, res, next) => {
 
@@ -61,11 +62,14 @@ const getUserProjects = async (req, res, next) => {
     try {
         const members = await WorkspaceMember.find({ user: req.user._id }).select("workspace")
         const userWorkspaces = members.map((member) => member.workspace)
-        const projects = await Project.find({ workspace: { $in: userWorkspaces } }).populate("workspace","name")
+        const projects = await Project.find({ workspace: { $in: userWorkspaces } }).populate("workspace", "name")
+        const result = []
+        projects.map((project) => {
+            const taskCount = await Task.countDocuments({ project: project._id })
+            result.push({ project, taskCount })
+        })
 
-        //todo :add task count for each project later
-
-        return res.status(200).json(new ApiResponse(200, projects, "User workspaces projects fechted successfully"))
+        return res.status(200).json(new ApiResponse(200, result, "User workspaces projects fechted successfully"))
     } catch (error) {
         next(error)
     }
@@ -79,8 +83,9 @@ const getProjectById = async (req, res, next) => {
             throw new ApiError(404, "Project does not exist")
         }
 
-        //todo : fetch tasks 
-        const tasks = []
+        const tasks = await Task.find({
+            project: project._id
+        })
 
         return res.status(200).json(new ApiResponse(200, { project, tasks }, "Project details fetched successfully"))
     } catch (error) {
@@ -154,18 +159,25 @@ const updateProject = async (req, res, next) => {
 }
 
 const deleteProject = async (req, res, next) => {
+    const session = await mongoose.startSession();
     try {
-        const deletedProject = await Project.findByIdAndDelete(req.project._id)
+        session.startTransaction()
+        const deletedProject = await Project.findByIdAndDelete(req.project._id, { session })
         if (!deletedProject) {
             throw new ApiError(404, "Project does not exist");
         }
+        await Task.deleteMany({ project: req.project._id }, { session })
 
-        //todo: add transition and delete projects task latter
-
+        await session.commitTransaction()
         return res.status(200).json(new ApiResponse(200, deletedProject, "Project deleted successfully"))
 
     } catch (error) {
+        if (session.inTransaction()) {
+            await session.abortTransaction();
+        }
         next(error)
+    } finally {
+        session.endSession();
     }
 }
 
