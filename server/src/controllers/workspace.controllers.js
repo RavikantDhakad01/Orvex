@@ -7,6 +7,7 @@ import { WORKSPACE_ROLE } from "../constants.js"
 import Invitation from "../models/invitation.model.js"
 import getRandomAvatarColor from "../utils/randomColor.js"
 import Project from "../models/project.model.js"
+import Task from "../models/task.model.js"
 
 const createWorkspace = async (req, res, next) => {
     const session = await mongoose.startSession();

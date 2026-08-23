@@ -4,6 +4,7 @@ import getRandomAvatarColor from "../utils/randomColor.js"
 import Project from "../models/project.model.js"
 import WorkspaceMember from "../models/workspaceMember.model.js"
 import Task from "../models/task.model.js"
+import mongoose from "mongoose"
 
 const createProject = async (req, res, next) => {
 
