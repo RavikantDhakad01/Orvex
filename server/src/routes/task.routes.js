@@ -13,6 +13,6 @@ import { WORKSPACE_ROLE } from "../constants.js"
 const router = Router()
 router.route("/projects/:projectId/tasks").post(verifyJwt, authorizeProject([WORKSPACE_ROLE.OWNER]), createTask)
 router.route("/user").get(verifyJwt, getUserTasks)
-router.route("/tasks/:taskId").get(verifyJwt, authorizeTask([WORKSPACE_ROLE.OWNER, WORKSPACE_ROLE.MEMBER]), getTaskById).patch(verifyJwt, authorizeTask([WORKSPACE_ROLE.OWNER, WORKSPACE_ROLE.MEMBER]), updateTask).delete(verifyJwt, authorizeTask([WORKSPACE_ROLE.OWNER]), deleteTask)
+router.route("/:taskId").get(verifyJwt, authorizeTask([WORKSPACE_ROLE.OWNER, WORKSPACE_ROLE.MEMBER]), getTaskById).patch(verifyJwt, authorizeTask([WORKSPACE_ROLE.OWNER, WORKSPACE_ROLE.MEMBER]), updateTask).delete(verifyJwt, authorizeTask([WORKSPACE_ROLE.OWNER]), deleteTask)
 
 export default router
