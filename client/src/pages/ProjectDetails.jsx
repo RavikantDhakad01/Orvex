@@ -145,7 +145,7 @@ function ProjectDetails() {
                   className="text-blue-700"
                 />
               </div>
-              <span className="text-xl">{`${0} Tasks`}</span>
+              <span className="text-xl">{`${projectData.tasks.length} Tasks`}</span>
             </div>
             <div className="w-full h-px bg-gray-300" />
             </div>

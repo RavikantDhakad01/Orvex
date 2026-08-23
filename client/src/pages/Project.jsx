@@ -9,14 +9,14 @@ import toast from 'react-hot-toast';
 
 function Project() {
   const [loading, setLoading] = useState(true);
-  const [projects, setProjects] = useState([]);
+  const [projectsData, setProjectsData] = useState([]);
   const navigate = useNavigate();
 
    useEffect(() => {
     const fetchProjects = async () => {
       try {
         const response= await getUserProjects();
-        setProjects(response.data);
+        setProjectsData(response.data);
       } catch (error) {
         if (error.response) {
           toast.error(
@@ -44,20 +44,20 @@ function Project() {
 
   return (
     <>
-      {projects.length > 0 ? (
+      {projectsData.length > 0 ? (
         <>
           <div className="flex justify-between">
             <h1 className="text-2xl font-bold">Projects</h1>
           </div>
 
           <div className="flex flex-col gap-4 mt-6">
-            {projects.map((project) => (
+            {projectsData.map((projectData) => (
               <ProjectCard
-                project={project}
-                key={project._id}
+                project={projectData.project}
+                key={projectData.project._id}
                 showTask={true}
                 showWorkspace={true}
-                taskCount={0} workspaceName={project.workspace.name}
+                taskCount={projectData.taskCount} workspaceName={projectData.project.workspace.name}
               />
             ))}
           </div>
