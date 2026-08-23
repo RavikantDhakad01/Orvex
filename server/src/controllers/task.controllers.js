@@ -91,7 +91,10 @@ const createTask = async (req, res, next) => {
 
 const getUserTasks = async (req, res, next) => {
     try {
+        const members = await WorkspaceMember.find({ user: req.user._id }).select("workspace")
+        const userWorkspaces = members.map((member) => member.workspace)
         const tasks = await Task.find({
+            workspace: { $in: userWorkspaces },
             assignedTo: {
                 $in: [req.user._id, null]
             }
