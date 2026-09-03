@@ -105,7 +105,7 @@ const getWorkspaceById = async (req, res, next) => {
             throw new ApiError(404, "Workspace does not exist")
         }
 
-        const members = await WorkspaceMember.find({ workspace: workspace._id }).populate("user", "username avatarColor")
+        const members = await WorkspaceMember.find({ workspace: workspace._id }).populate("user", "username avatarColor email")
         const projects = await Project.find({ workspace: workspace._id })
 
         return res.status(200).json(new ApiResponse(200, { workspace, members, projects }, "Workspace details fetched successfully"))
