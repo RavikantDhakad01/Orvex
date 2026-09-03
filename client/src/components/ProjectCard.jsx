@@ -6,7 +6,7 @@ function ProjectCard({project,showWorkspace,showTask,taskCount=0,workspaceName})
   const navigate=useNavigate()
   return (
     <div className="flex flex-col justify-center shadow-md py-5 px-4 rounded-lg cursor-pointer gap-4" onClick={()=>navigate(`/project/${project._id}`)}>
-      <div className="flex gap-6 items-start">
+      <div className="flex gap-6 items-center">
         <Avatar className="rounded-lg p-4" name={project.name} color={project.avatarColor}/>
         <div className="flex flex-col gap-1 min-w-0 flex-1">
           <h2 className="font-bold text-lg">{project.name}</h2>
