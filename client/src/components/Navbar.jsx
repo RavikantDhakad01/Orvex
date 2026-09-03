@@ -36,7 +36,7 @@ function Navbar({setIsSidebarOpen,isDropdownOpen,setIsDropdownOpen}) {
                     <li ><Menu className=" cursor-pointer lg:hidden" onClick={()=>setIsSidebarOpen(true)}/></li>
                     <li className="relative">
                         <button className="cursor-pointer flex items-center" onClick={() => setIsDropdownOpen(pre=>!pre)}>
-                            <Avatar name={user?.username} color={user.avatarColor} className="rounded-full w-8 h-8 "/>
+                            <Avatar name={user?.username} color={user?.avatarColor} className="rounded-full w-8 h-8 "/>
                             <ChevronDown size={16} />
                         </button>
                         {
